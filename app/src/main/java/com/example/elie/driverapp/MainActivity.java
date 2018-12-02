@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         FindViews();
         sharedPreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
         if(sharedPreferences.contains(Name))
-            Pseudo.setText(sharedPreferences.getString(Name,"7"));
+            Pseudo.setText(sharedPreferences.getString(Name,""));
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
 
