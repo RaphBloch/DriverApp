@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+
+    <EditText
+                android:id="@+id/ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:hint="@string/ID"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/ID"
+                android:layout_marginTop="89dp"
+                android:ems="10"
+                android:hint="@string/Name"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/Phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/ID"
+                android:layout_marginTop="153dp"
+                android:ems="10"
+                android:hint="@string/Phone"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/Mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/ID"
+                android:layout_marginTop="220dp"
+                android:ems="10"
+                android:hint="@string/Mail"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/Password1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/ID"
+                android:layout_below="@id/Mail"
+                android:ems="10"
+                android:hint="@string/Password"
+                android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/Confirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ID"
+        android:layout_marginBottom="166dp"
+        android:text="@string/Confirmation" />
+
+    <EditText
+        android:id="@+id/Password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ID"
+        android:layout_marginBottom="111dp"
+        android:ems="10"
+        android:hint="@string/Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/Register"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginStart="116dp"
+        android:background="@color/Red"
+        android:textColor="@color/Blue"
+        android:gravity="center"
+        android:text="@string/Register" />
+
+
+</RelativeLayout>
