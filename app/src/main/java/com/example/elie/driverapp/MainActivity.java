@@ -11,7 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.elie.driverapp.R;
+import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
+
+import com.example.elie.driverapp.Model.Entities.*;
+
+
+public class MainActivity extends AppCompatActivity
+{
 
     public static final String mypreference = "myKeyWords";
     public static final String Name = "Pseudo";
@@ -39,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
             Pseudo.setText(sharedPreferences.getString(Name,""));
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
+
+        Driver d= new Driver();
+        FireBase_DSManager fireBase_dsManager=new FireBase_DSManager();
+        fireBase_dsManager.addDriver(d);
 
     }
 

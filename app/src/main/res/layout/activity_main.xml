@@ -10,10 +10,11 @@
         android:id="@+id/Pseudo"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+
         android:layout_alignParentTop="true"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="112dp"
+        android:hint="@string/Name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="" />
@@ -22,10 +23,9 @@
         android:id="@+id/Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="197dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="181dp"
         android:ems="10"
         android:hint="@string/Password"
         android:inputType="textPassword" />
@@ -34,25 +34,27 @@
         android:id="@+id/Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/Blue"
-        android:textColor="@color/Red"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="193dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="207dp"
 
-        android:text="@string/Login" />
+        android:background="@color/Blue"
+        android:layout_marginEnd="137dp"
+        android:gravity="center"
+        android:text="@string/Login"
+        android:textColor="@color/Red" />
 
     <Button
         android:id="@+id/SignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp"
+        android:layout_marginEnd="137dp"
         android:background="@color/Blue"
-        android:textColor="@color/Red"
-        android:layout_marginBottom="54dp"
-        android:text="@string/Register" />
+        android:text="@string/Register"
+        android:textColor="@color/Red" />
 
 
 </RelativeLayout>
