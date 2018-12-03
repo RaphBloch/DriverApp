@@ -16,6 +16,8 @@ import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 
 import com.example.elie.driverapp.Model.Entities.*;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -23,9 +25,11 @@ public class MainActivity extends AppCompatActivity
     public static final String mypreference = "myKeyWords";
     public static final String Name = "Pseudo";
     public static final String Pass = "Password";
+
     //region ***** Fields *****
 
 
+    public static int i=4;
 
     Button SignIn;
     Button Login;
@@ -47,9 +51,21 @@ public class MainActivity extends AppCompatActivity
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
 
-        Driver d= new Driver();
-        FireBase_DSManager fireBase_dsManager=new FireBase_DSManager();
-        fireBase_dsManager.addDriver(d);
+       FireBase_DSManager.notifyToDriverList(new FireBase_DSManager.NotifyDataChange<List<Driver>>() {
+            @Override
+            public void OnDataChanged(List<Driver> obj)
+            {
+                Toast.makeText(getBaseContext(),"Essai",Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void OnFailure(Exception exception)
+            {
+
+
+            }
+        });
 
     }
 
@@ -62,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         editor.putString(Name,name);
         editor.putString(Pass,password);
         editor.commit();
-        Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
 
     }
     /*public void Fetch(View view)
@@ -89,6 +105,10 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Store(v);
+                Driver d= new Driver(i);
+                FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
+                fireBase_dsManager.addDriver(d);
+                i++;
             }
 
 
@@ -109,4 +129,9 @@ public class MainActivity extends AppCompatActivity
             });
 
         }
-    }
+
+
+
+
+
+}

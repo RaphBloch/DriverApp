@@ -61,6 +61,14 @@ public class Driver implements Serializable
         Mail="@";
     }
 
+    public Driver(int i)
+    {
+        Name="rr";
+        Phone="065";
+        ID=i;
+        Mail="@";
+    }
+
     public  Driver(Driver driver)
     {
         this.Name=driver.getName();

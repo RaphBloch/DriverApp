@@ -147,9 +147,10 @@ public class ClientRequest implements Serializable
     }
 
     @Override
-public String toString() {
+    public String toString()
+    {
     return "Mr "+getName()+" ID: "+getId()+ "\n Your request  is being processed ";
-}
+    }
 
     //endregion
 

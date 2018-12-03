@@ -2,11 +2,15 @@ package com.example.elie.driverapp.Model.DS;
 
 
 import android.support.annotation.NonNull;
+import java.util.*;
 
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -44,8 +48,10 @@ public class FireBase_DSManager
     // creation of my databaseReference
     static DatabaseReference ClientsRef;
     static DatabaseReference DriversRef;
-    static ArrayList<ClientRequest> ClientsList;
-    static ArrayList<Driver> DriversList;
+    static List<ClientRequest> ClientsList;
+    static List<Driver> DriversList;
+    public static ChildEventListener clientRefChildEventListener;
+    public static ChildEventListener driverRefChildEventListener;
 
     static
     {
@@ -58,13 +64,10 @@ public class FireBase_DSManager
     }
 
 
-
     /***
-     * Function : addClientRequest
-     * @param Driver  the driver  to add
-     * Meaning : calls the function that add the driver  to the firebase
+     *
+     * @param driver
      */
-
     public   void addDriver(final  Driver  driver)
     {
         addDriverToFireBase(driver, new Action<String>() {
@@ -85,20 +88,7 @@ public class FireBase_DSManager
         });
     }
 
-    /***
-     * Function : addDriverToFirebaseFireBase
-     *
-     * @param Driver A driver
-     * @param action The interface of the firebase
-     *
-     *  The function must add a driver  to my firebase.
-     *
-     *  Explication :    There is the implementation of the the 3 functions of the interface.
-     *      OnSuccess : It receives the ID of the driver that is the key
-     *      OnFailure : It tells us if there is a failure in the loading and throws exception
-     *      OnProgress : It tells us the progress of the load of the data with a message
 
-     */
     private static void addDriverToFireBase(final Driver driver,final Action<String> action)
     {
         String key=String.valueOf(driver.getID());
@@ -118,6 +108,105 @@ public class FireBase_DSManager
     }
 
 
+
+    public static void notifyToClientList(final NotifyDataChange<List<ClientRequest>> notifyDataChange)
+
+    {
+        if(notifyDataChange !=  null)
+        {
+            if(clientRefChildEventListener != null)
+            {
+                notifyDataChange.OnFailure(new Exception("No change"));
+                return;
+            }
+
+            ClientsList.clear();
+
+        clientRefChildEventListener= new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
+                String ID = dataSnapshot.getKey();
+                c.setId(Integer.parseInt(ID));
+                notifyDataChange.OnDataChanged(ClientsList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+            ClientsRef.addChildEventListener(clientRefChildEventListener);
+        }
+    }
+
+
+
+
+   public static void notifyToDriverList(final NotifyDataChange<List<Driver>> notifyDataChange)
+
+    {
+        if(notifyDataChange !=  null)
+        {
+            if(clientRefChildEventListener != null)
+            {
+                notifyDataChange.OnFailure(new Exception("No change"));
+                return;
+            }
+
+
+
+            driverRefChildEventListener= new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s)
+                {
+                    Driver d = dataSnapshot.getValue(Driver.class);
+                    String ID = dataSnapshot.getKey();
+                    d.setID(Integer.parseInt(ID));
+                    notifyDataChange.OnDataChanged(DriversList);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+
+            DriversRef.addChildEventListener(driverRefChildEventListener);
+        }
+    }
 
 
 
