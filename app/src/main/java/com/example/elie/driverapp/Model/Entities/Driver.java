@@ -63,7 +63,7 @@ public class Driver implements Serializable
 
     public Driver(int i)
     {
-        Name="rr";
+        Name="meir";
         Phone="065";
         ID=i;
         Mail="@";

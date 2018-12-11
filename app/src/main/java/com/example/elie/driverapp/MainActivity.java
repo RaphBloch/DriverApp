@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
 
-       FireBase_DSManager.notifyToDriverList(new FireBase_DSManager.NotifyDataChange<List<Driver>>() {
+        FireBase_DSManager.notifyToDriverList(new FireBase_DSManager.NotifyDataChange<List<Driver>>() {
             @Override
             public void OnDataChanged(List<Driver> obj)
             {
-                Toast.makeText(getBaseContext(),"Essai",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"UN Driver A ETE RAJOUTE JTM",Toast.LENGTH_SHORT).show();
 
             }
 
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
 
     }
 
@@ -104,11 +106,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Store(v);
+               // Store(v);
                 Driver d= new Driver(i);
                 FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
                 fireBase_dsManager.addDriver(d);
                 i++;
+
             }
 
 

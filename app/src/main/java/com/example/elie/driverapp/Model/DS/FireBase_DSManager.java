@@ -96,7 +96,7 @@ public class FireBase_DSManager
             @Override
             public void onSuccess(Void aVoid) {
                 action.OnSuccess(driver.getName());
-                action.OnProgress("Load Clientrequest data",100);
+                action.OnProgress("Load Driver data",100);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -129,6 +129,7 @@ public class FireBase_DSManager
                 ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
                 String ID = dataSnapshot.getKey();
                 c.setId(Integer.parseInt(ID));
+                ClientsList.add(c);
                 notifyDataChange.OnDataChanged(ClientsList);
             }
 
@@ -148,8 +149,9 @@ public class FireBase_DSManager
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(DatabaseError databaseError)
+            {
+                notifyDataChange.OnFailure(databaseError.toException());
             }
         };
 
@@ -164,13 +166,14 @@ public class FireBase_DSManager
 
     {
         if(notifyDataChange !=  null)
-        {
-            if(clientRefChildEventListener != null)
+
+            if(driverRefChildEventListener != null)
             {
                 notifyDataChange.OnFailure(new Exception("No change"));
                 return;
             }
 
+            DriversList.clear();
 
 
             driverRefChildEventListener= new ChildEventListener() {
@@ -178,8 +181,9 @@ public class FireBase_DSManager
                 public void onChildAdded(DataSnapshot dataSnapshot, String s)
                 {
                     Driver d = dataSnapshot.getValue(Driver.class);
-                    String ID = dataSnapshot.getKey();
+                    String ID= dataSnapshot.getKey();
                     d.setID(Integer.parseInt(ID));
+                    DriversList.add(d);
                     notifyDataChange.OnDataChanged(DriversList);
                 }
 
@@ -200,12 +204,24 @@ public class FireBase_DSManager
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    notifyDataChange.OnFailure(databaseError.toException());
 
                 }
             };
 
             DriversRef.addChildEventListener(driverRefChildEventListener);
         }
+
+
+        public static void   stopNotifyToClientList()
+         {
+
+                    if  (clientRefChildEventListener  !=  null )
+                            ClientsRef.removeEventListener(clientRefChildEventListener);
+                    clientRefChildEventListener=null;
+
+        }
+
     }
 
 
@@ -216,4 +232,3 @@ public class FireBase_DSManager
 
 
 
-}
