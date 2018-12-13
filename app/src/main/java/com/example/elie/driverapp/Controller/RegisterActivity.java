@@ -1,11 +1,15 @@
-package com.example.elie.driverapp;
+package com.example.elie.driverapp.Controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.example.elie.driverapp.R;
 
@@ -21,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity
     EditText Phone;
     EditText Password1;
     EditText Password2;
+    Button RegisterBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,7 +33,17 @@ public class RegisterActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         FindViews();
-        login();
+        RegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+                Driver d= new Driver( ID.getId(), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
+                FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
+                fireBase_dsManager.addDriver(d);
+
+            }
+        });
+
     }
 
     private void FindViews()
@@ -39,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity
         Password1=(EditText)findViewById(R.id.Password1);
         Password2=(EditText)findViewById(R.id.Password2);
         Mail=(EditText)findViewById(R.id.Mail);
+        RegisterBtn=(Button)findViewById(R.id.Register);
 
     }
 
