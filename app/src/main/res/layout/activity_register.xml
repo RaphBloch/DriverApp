@@ -118,9 +118,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
+        android:layout_gravity="right"
         android:text="@string/Register"
         android:background="@drawable/background_button"/>
+
+        <Button
+            android:id="@+id/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="left"
+            android:text="@string/Cancel"
+            android:background="@drawable/background_button"/>
 
     </LinearLayout>
 

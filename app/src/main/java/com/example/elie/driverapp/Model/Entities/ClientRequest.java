@@ -83,7 +83,7 @@ public class ClientRequest implements Serializable
     }
 
 
-    @Exclude
+
     public int getId()
     {
         return id;
@@ -155,3 +155,4 @@ public class ClientRequest implements Serializable
     //endregion
 
 }
+

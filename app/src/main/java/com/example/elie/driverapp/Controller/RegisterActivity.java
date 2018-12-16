@@ -1,5 +1,7 @@
 package com.example.elie.driverapp.Controller;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.example.elie.driverapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity
     EditText Password1;
     EditText Password2;
     Button RegisterBtn;
+    Button CancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,10 +40,30 @@ public class RegisterActivity extends AppCompatActivity
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                FirebaseAuth auth=FirebaseAuth.getInstance();
+                auth.createUserWithEmailAndPassword(Mail.getText().toString(),Password1.getText().toString());
                 login();
                 Driver d= new Driver( ID.getId(), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
                 FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
                 fireBase_dsManager.addDriver(d);
+                ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
+                Intent myintent=new Intent();
+                myintent.setComponent(componentName);
+                startActivity(myintent);
+
+
+            }
+        });
+
+        CancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ComponentName componentName = new ComponentName(RegisterActivity.this,MainActivity.class);
+                Intent myintent=new Intent();
+                myintent.setComponent(componentName);
+                startActivity(myintent);
 
             }
         });
@@ -55,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity
         Password2=(EditText)findViewById(R.id.Password2);
         Mail=(EditText)findViewById(R.id.Mail);
         RegisterBtn=(Button)findViewById(R.id.Register);
+        CancelBtn=(Button)findViewById(R.id.Cancel);
 
     }
 

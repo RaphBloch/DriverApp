@@ -4,6 +4,7 @@ package com.example.elie.driverapp.Model.DS;
 import android.support.annotation.NonNull;
 import java.util.*;
 
+import com.example.elie.driverapp.Model.Backend.Backend;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -13,11 +14,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.*;
 
 import java.util.ArrayList;
 
 
-public class FireBase_DSManager
+public class FireBase_DSManager implements Backend
 
 {
     /***
@@ -56,6 +58,7 @@ public class FireBase_DSManager
     static
     {
         FirebaseDatabase data=FirebaseDatabase.getInstance();
+        FirebaseAuth  auth=FirebaseAuth.getInstance();
         //The reference of my data of clients is Clients
         ClientsRef= data.getReference("Clients");
         DriversRef=data.getReference("Drivers");

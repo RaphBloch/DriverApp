@@ -11,6 +11,7 @@
     <string name="Password">Password</string>
     <string name="Confirmation">Please enter your password again </string>
     <string name="Login">Login</string>
+    <string name="Cancel">Cancel</string>
     <string name="Title_Notification">Get Taxi</string>
     <string name="Describle_Notification">A new order is available !</string>
 </resources>
