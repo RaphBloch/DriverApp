@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     public static final String mypreference = "myKeyWords";
-    public static final String Mail = "Mail";
+    public static final String Mail= "Mail";
     public static final String Pass = "Password";
 
     //region ***** Fields *****
@@ -157,12 +157,15 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful())
+            {
                 GoToDriver();
+                FirebaseUser user=auth.getCurrentUser();
+            }
             else
                 Toast.makeText(getBaseContext(),
                         "Authentification failed",Toast.LENGTH_SHORT).show();
-        }
 
+        }
     });
 
     }

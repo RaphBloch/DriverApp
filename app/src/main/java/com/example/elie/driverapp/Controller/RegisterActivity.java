@@ -2,6 +2,7 @@ package com.example.elie.driverapp.Controller;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,7 +15,11 @@ import android.widget.Toast;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.example.elie.driverapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity
     EditText Password2;
     Button RegisterBtn;
     Button CancelBtn;
+    FirebaseAuth auth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,10 +47,9 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                FirebaseAuth auth=FirebaseAuth.getInstance();
-                auth.createUserWithEmailAndPassword(Mail.getText().toString(),Password1.getText().toString());
                 login();
-                Driver d= new Driver( ID.getId(), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
+                Register();
+                Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
                 FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
                 fireBase_dsManager.addDriver(d);
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
@@ -105,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity
             Toast.makeText(this ,"Login Successful",Toast.LENGTH_SHORT).show();
         }
 
-        if (Password1.getText().equals(Password2.getText()) == false)
+        if (!(Password1.getText().toString().equals(Password2.getText().toString())))
             Password2.setError("The password are not the same");
     }
 
@@ -129,6 +134,27 @@ public class RegisterActivity extends AppCompatActivity
         d.setID(Integer.valueOf(ID.getText().toString()));
 
         return d;
+    }
+
+
+    private void Register()
+    {
+        auth.createUserWithEmailAndPassword(Mail.getText().toString(),Password1.getText().toString()).
+            addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful())
+                    {
+
+                        FirebaseUser user=auth.getCurrentUser();
+                    }
+                    else
+                        Toast.makeText(getBaseContext(),
+                                "Authentification failed",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
     }
 
 
