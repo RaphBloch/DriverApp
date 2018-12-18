@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    public static int i=4;
+    //public static int i=4;
 
     Button SignIn;
     Button Login;
@@ -61,20 +61,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         FindViews();
 
-        Login.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // Store(
 
-                if(MyMail.getText().toString().equals(sharedPreferences.getString(Mail,""))
-                        && Password.getText().toString().equals(sharedPreferences.getString(Pass,"")))
-                    GoToDriver();
-                    else
-                        SignIn();
-            }
-        });
 
         SignIn.setOnClickListener(new View.OnClickListener()
         {
@@ -94,6 +81,21 @@ public class MainActivity extends AppCompatActivity
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
 
+        Login.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Store(v);
+
+                /*if(MyMail.getText().toString().equals(sharedPreferences.getString(Mail,""))
+                        && Password.getText().toString().equals(sharedPreferences.getString(Pass,"")))
+                    GoToDriver();
+                else*/
+                    SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
+            }
+        });
+
 
     }
 
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         editor.putString(Mail,mail);
         editor.putString(Pass,password);
         editor.commit();
-        //Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
 
     }
     /*public void Fetch(View view)
@@ -146,13 +148,13 @@ public class MainActivity extends AppCompatActivity
         Intent intent=new Intent();
         intent.setComponent(componentName);
         startActivity(intent);
-        startService(new Intent(getBaseContext(),DriverService.class));
+        //startService(new Intent(getBaseContext(),DriverService.class));
 
     }
 
-    private void SignIn()
+    private void SignIn(String mail,String password)
     {
-        auth.signInWithEmailAndPassword(MyMail.getText().toString(),Password.getText().toString()).
+        auth.signInWithEmailAndPassword(mail,password).
     addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -160,7 +162,8 @@ public class MainActivity extends AppCompatActivity
             {
                 GoToDriver();
                 FirebaseUser user=auth.getCurrentUser();
-            }
+
+        }
             else
                 Toast.makeText(getBaseContext(),
                         "Authentification failed",Toast.LENGTH_SHORT).show();
