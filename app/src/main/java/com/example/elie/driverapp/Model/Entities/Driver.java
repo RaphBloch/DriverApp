@@ -36,8 +36,8 @@ public class Driver implements Serializable
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(int id) {
+        this.ID = id;
     }
 
     public String getPhone() {

@@ -12,6 +12,7 @@ import android.view.View;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elie.driverapp.DriverService;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
     //public static int i=4;
 
-    Button SignIn;
+    TextView SignIn;
     Button Login;
     EditText MyMail;
     EditText Password;
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     private void FindViews()
     {
-        SignIn = (Button)findViewById(R.id.SignIn);
+        SignIn = (TextView) findViewById(R.id.SignIn);
         Login=(Button)findViewById(R.id.Login);
         Password=(EditText)findViewById(R.id.Password);
         MyMail=(EditText)findViewById(R.id.Pseudo);
