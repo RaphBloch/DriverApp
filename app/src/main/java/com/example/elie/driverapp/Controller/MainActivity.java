@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent=new Intent();
         intent.setComponent(componentName);
         startActivity(intent);
-        //startService(new Intent(getBaseContext(),DriverService.class));
+        startService(new Intent(getBaseContext(),DriverService.class));
 
     }
 

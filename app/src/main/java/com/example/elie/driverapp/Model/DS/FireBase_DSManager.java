@@ -44,6 +44,9 @@ public class FireBase_DSManager implements Backend
     {
         void OnDataChanged(T obj);
 
+
+        void OnDataAdded(T obj);
+
         void OnFailure(Exception exception);
     }
 
@@ -112,7 +115,7 @@ public class FireBase_DSManager implements Backend
 
 
 
-    public static void notifyToClientList(final NotifyDataChange<List<ClientRequest>> notifyDataChange)
+    public static void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
 
     {
         if(notifyDataChange !=  null)
@@ -132,8 +135,7 @@ public class FireBase_DSManager implements Backend
                 ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
                 String ID = dataSnapshot.getKey();
                 c.setId(Integer.parseInt(ID));
-                ClientsList.add(c);
-                notifyDataChange.OnDataChanged(ClientsList);
+                notifyDataChange.OnDataAdded(c);
             }
 
             @Override
@@ -186,8 +188,8 @@ public class FireBase_DSManager implements Backend
                     Driver d = dataSnapshot.getValue(Driver.class);
                     String ID= dataSnapshot.getKey();
                     d.setID(Integer.parseInt(ID));
-                    DriversList.add(d);
-                    notifyDataChange.OnDataChanged(DriversList);
+                   DriversList.add(d);
+                    notifyDataChange.OnDataAdded(DriversList);
                 }
 
                 @Override

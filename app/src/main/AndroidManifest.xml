@@ -3,7 +3,8 @@
     package="com.example.elie.driverapp">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,6 +25,21 @@
             android:name=".DriverService"
             android:enabled="true"
             android:exported="true" />
+
+        <receiver
+            android:name=".MyBroadcastReceiver" >
+            <intent-filter>
+            <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_TICK"/>
+            </intent-filter>
+        </receiver>
+
+
 
         <activity
             android:name=".Controller.DriverActivity"

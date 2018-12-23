@@ -5,6 +5,7 @@ import com.example.elie.driverapp.DriverNavigationDrawer.*;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
+import com.example.elie.driverapp.*;
+import com.example.elie.driverapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class DriverActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +43,28 @@ public class DriverActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        registerReceiver(
+                new MyBroadcastReceiver(),
+                new IntentFilter(Intent.ACTION_TIME_TICK));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         setContentView(R.layout.activity_driver2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
