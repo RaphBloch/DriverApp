@@ -11,7 +11,7 @@ public class ClientRequest implements Serializable
     private String Phone;
     private int id;
     private ClientRequestStatus status;
-    public String Destination;
+    //public String Destination;
     private double DepartureLongitude;
     private double DepartureLatitude;
     private double ArrivalLongitude;
@@ -31,6 +31,7 @@ public class ClientRequest implements Serializable
         DepartureLongitude=0;
         ArrivalLatitude=89;
         ArrivalLongitude=2;
+       // Destination="8 rue Lamey,Strasbourg";
     }
 
 
@@ -45,6 +46,7 @@ public class ClientRequest implements Serializable
         DepartureLongitude=c.DepartureLongitude;
         ArrivalLatitude=c.ArrivalLatitude;
         ArrivalLongitude=c.ArrivalLongitude;
+        //Destination=c.Destination;
     }
 
     //endregion
@@ -145,6 +147,15 @@ public class ClientRequest implements Serializable
     public void setArrivalLatitude(double arrivalLatitude) {
         ArrivalLatitude = arrivalLatitude;
     }
+
+
+    //public String getDestination() {
+        //return Destination;
+   /* }
+
+    public void setDestination(String destination) {
+        Destination = destination;
+    }*/
 
     @Override
     public String toString()

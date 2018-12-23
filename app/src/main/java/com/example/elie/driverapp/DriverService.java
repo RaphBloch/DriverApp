@@ -78,8 +78,11 @@ public class DriverService extends Service
             @Override
             public void OnDataAdded(ClientRequest obj)
             {
+                        Intent myintent=new Intent();
+                        sendBroadcast(myintent);
 
-                        notifs();
+
+                        //notifs();
 
             }
 

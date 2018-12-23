@@ -143,7 +143,22 @@ public class FireBase_DSManager implements Backend
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+
+            {
+                ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
+                String ID = dataSnapshot.getKey();
+                c.setId(Integer.parseInt(ID));
+                int i=0;
+                for (ClientRequest  client : ClientsList )
+                {
+
+                    if(client.getId() == Integer.parseInt(ID) )
+                        ClientsList.set(i,c);
+
+                                i++;
+                }
+                notifyDataChange.OnDataChanged(c);
 
             }
 
@@ -169,57 +184,26 @@ public class FireBase_DSManager implements Backend
     }
 
 
+       /* public ArrayList<ClientRequest> getClientsByCity(String city)
+        {
 
+            ArrayList<ClientRequest> mylist=new ArrayList<>();
 
-   public static void notifyToDriverList(final NotifyDataChange<List<Driver>> notifyDataChange)
-
-    {
-        if(notifyDataChange !=  null)
-
-            if(driverRefChildEventListener != null)
+            for (ClientRequest  c : ClientsList )
             {
-                notifyDataChange.OnFailure(new Exception("No change"));
-                return;
+                if(c.getDestination().contains(city))
+                    mylist.add(c);
             }
 
-            DriversList.clear();
+
+            return mylist;
+
+        }*/
 
 
-            driverRefChildEventListener= new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s)
-                {
-                    Driver d = dataSnapshot.getValue(Driver.class);
-                    String ID= dataSnapshot.getKey();
-                    d.setID(Integer.parseInt(ID));
-                   DriversList.add(d);
-                    notifyDataChange.OnDataAdded(DriversList);
-                }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    notifyDataChange.OnFailure(databaseError.toException());
-
-                }
-            };
-
-            DriversRef.addChildEventListener(driverRefChildEventListener);
-        }
 
 
         public static void   stopNotifyToClientList()
@@ -230,6 +214,10 @@ public class FireBase_DSManager implements Backend
                     clientRefChildEventListener=null;
 
         }
+
+
+
+
 
     }
 

@@ -3,9 +3,22 @@ package com.example.elie.driverapp.Controller;
 
 import com.example.elie.driverapp.DriverNavigationDrawer.*;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +26,7 @@ import android.support.design.widget.Snackbar;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 
@@ -27,6 +41,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.*;
 import com.example.elie.driverapp.R;
@@ -43,8 +59,31 @@ public class DriverActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    public double longitude;
+    public double latitude;
+    LocationManager locationManager;
+    LocationListener locationListener;
+    int MY_NOTFICATION_ID;
 
-    ArrayList<ClientRequest>  clientlist = new ArrayList<ClientRequest>(FireBase_DSManager.ClientsList);
+    final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+
+    //final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+
+    @SuppressLint("WrongConstant")
+
+    NotificationChannel notificationChannel;
+
+    NotificationManager notificationManager;
+
+
+    public BroadcastReceiver myReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context,Intent intent){
+            System.out.println("inside onReceive");
+
+            notifs();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,24 +93,32 @@ public class DriverActivity extends AppCompatActivity
                 new MyBroadcastReceiver(),
                 new IntentFilter(Intent.ACTION_TIME_TICK));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         setContentView(R.layout.activity_driver2);
+        locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationListener=new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location)
+            {
+                latitude=location.getLatitude();
+                longitude=location.getLongitude();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        } ;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -92,6 +139,8 @@ public class DriverActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getLocation();
     }
 
     @Override
@@ -158,5 +207,109 @@ public class DriverActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-                }
-                }
+
+  }
+
+
+  public double getlongitude()
+  {
+      return longitude;
+  }
+
+    public double getlatitude()
+    {
+        return latitude;
+    }
+
+    //region ***** GoogleMaps *****
+    private void getLocation()
+    {
+
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 5);
+        }
+
+        else
+        {
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        if (requestCode == 5) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0, locationListener);
+            }
+            else {
+
+
+                Toast.makeText(this, "Until you grant the permission, we cannot display the location",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+    }
+
+
+    private void notifs()
+    {
+
+        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, DriverActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
+        notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.setDescription("Channel description");
+
+            notificationChannel.enableLights(true);
+
+            notificationChannel.setLightColor(Color.CYAN);
+
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+        }
+
+        final NotificationCompat.Builder b = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+
+
+
+
+        b.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.logo7_hdpi)
+                .setContentTitle("New Order")
+                .setContentText("You have a  new Order")
+                .setDefaults(Notification.DEFAULT_LIGHTS)
+                .setContentIntent(contentIntent)
+                .setContentInfo("Info");
+
+
+        notificationManager.notify(1, b.build());
+    }
+
+
+
+
+}
