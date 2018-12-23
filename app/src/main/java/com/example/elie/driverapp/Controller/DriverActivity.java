@@ -15,6 +15,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
+
+import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import  com.example.elie.driverapp.R;
 import android.support.v4.view.GravityCompat;
 
@@ -34,11 +36,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 
 public class DriverActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+
+    ArrayList<ClientRequest>  clientlist = new ArrayList<ClientRequest>(FireBase_DSManager.ClientsList);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

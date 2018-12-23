@@ -53,10 +53,12 @@ public class FireBase_DSManager implements Backend
     // creation of my databaseReference
     static DatabaseReference ClientsRef;
     static DatabaseReference DriversRef;
-    static List<ClientRequest> ClientsList;
+    public static List<ClientRequest> ClientsList;
     static List<Driver> DriversList;
     public static ChildEventListener clientRefChildEventListener;
     public static ChildEventListener driverRefChildEventListener;
+
+
 
     static
     {
@@ -67,6 +69,7 @@ public class FireBase_DSManager implements Backend
         DriversRef=data.getReference("Drivers");
         ClientsList=new ArrayList<ClientRequest>();
         DriversList = new ArrayList<Driver>();
+
     }
 
 
@@ -135,6 +138,7 @@ public class FireBase_DSManager implements Backend
                 ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
                 String ID = dataSnapshot.getKey();
                 c.setId(Integer.parseInt(ID));
+                ClientsList.add(c);
                 notifyDataChange.OnDataAdded(c);
             }
 

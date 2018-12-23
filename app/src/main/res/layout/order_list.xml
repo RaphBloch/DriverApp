@@ -20,5 +20,23 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Welcome" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/listorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ListView>
+
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>

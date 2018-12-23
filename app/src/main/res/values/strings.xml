@@ -5,6 +5,8 @@
     <string name="Name">Name</string>
     <string name="Phone">Phone</string>
     <string name="ID">ID</string>
+    <string name="Destination">Destination</string>
+    <string name="Distance">Distance</string>
     <string name="Presentation">Presentation</string>
     <string name="Enter">Enter your Name</string>
     <string name="EnterPassword">Please enter a Password</string>
