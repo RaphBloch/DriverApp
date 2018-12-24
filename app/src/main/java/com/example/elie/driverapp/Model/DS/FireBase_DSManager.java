@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.example.elie.driverapp.Model.Backend.Backend;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
+import com.example.elie.driverapp.Model.Entities.ClientRequestStatus;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -129,7 +130,7 @@ public class FireBase_DSManager implements Backend
                 return;
             }
 
-            ClientsList.clear();
+            //ClientsList.clear();
 
         clientRefChildEventListener= new ChildEventListener() {
             @Override
@@ -184,23 +185,38 @@ public class FireBase_DSManager implements Backend
     }
 
 
-       /* public ArrayList<ClientRequest> getClientsByCity(String city)
+       public static  ArrayList<ClientRequest> WaitingClients()
         {
 
             ArrayList<ClientRequest> mylist=new ArrayList<>();
 
             for (ClientRequest  c : ClientsList )
             {
-                if(c.getDestination().contains(city))
+                if(c.getStatus()== ClientRequestStatus._Waiting)
                     mylist.add(c);
             }
 
 
             return mylist;
 
-        }*/
+        }
 
 
+    public static ArrayList<ClientRequest> FinishedClients()
+    {
+
+        ArrayList<ClientRequest> mylist=new ArrayList<>();
+
+        for (ClientRequest  c : ClientsList )
+        {
+            if(c.getStatus()== ClientRequestStatus._Finished)
+                mylist.add(c);
+        }
+
+
+        return mylist;
+
+    }
 
 
 

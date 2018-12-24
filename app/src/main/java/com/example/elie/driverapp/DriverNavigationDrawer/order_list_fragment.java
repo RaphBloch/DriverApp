@@ -21,14 +21,24 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,7 +47,11 @@ import java.util.ArrayList;
 public class order_list_fragment extends Fragment
 {
 
-    ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(FireBase_DSManager.ClientsList);
+    ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(FireBase_DSManager.WaitingClients());
+
+    private OrderAdapter myadapter;
+
+
     /*DriverActivity essai=(DriverActivity)getActivity();
 
 
@@ -57,38 +71,94 @@ public class order_list_fragment extends Fragment
         myview=inflater.inflate(R.layout.order_list,container,false);
         RecyclerView listView = (RecyclerView) myview.findViewById(R.id.listorder);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
-        OrderAdapter myadapter=new OrderAdapter(clientslist);
+        myadapter=new OrderAdapter(clientslist);
+        setHasOptionsMenu(true);
+        myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
+
+        
+
+
+
         return myview;
     }
 
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {SearchView searchView = (SearchView) item.getActionView();
+
+            searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    myadapter.getFilter().filter(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    myadapter.getFilter().filter(newText);
+                    return false;
+                }
+            });
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
 
-        EditText Name ;
-        EditText Destination;
-        EditText Distance ;
+        TextView Name ;
+        TextView Destination;
+        TextView Distance ;
 
         //itemView est la vue correspondante à 1 cellule
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            Name= (EditText) itemView.findViewById(R.id.NameLayout);
-            Destination=(EditText) itemView.findViewById(R.id.DestinationLayout);
-            Distance=(EditText) itemView.findViewById(R.id.DistanceLayout);
+            Name= (TextView) itemView.findViewById(R.id.NameLayout);
+            Destination=(TextView) itemView.findViewById(R.id.DestinationLayout);
+            Distance=(TextView) itemView.findViewById(R.id.DistanceLayout);
 
         }
 
         //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
         public void bind(ClientRequest myObject){
             Name.setText(myObject.getName());
-            Destination.setText(myObject.getMail());
-            Distance.setText("150 KM");
+            Destination.setText(myObject.getDestination());
+            Distance.setText(String.valueOf(getDistance(myObject) + "Km"));
+        }
+
+        private float getDistance(ClientRequest c) {
+
+
+
+
+            float[] results = new float[2];
+            Location.distanceBetween(c.getDepartureLatitude(),c.getDepartureLongitude(),
+                    c.getArrivalLatitude(),c.getArrivalLongitude(),results);
+
+            return (int)results[0]/1000;
+
+
         }
     }
 
-    public class OrderAdapter extends RecyclerView.Adapter<MyViewHolder>
+
+
+    public class OrderAdapter extends RecyclerView.Adapter<MyViewHolder> implements Filterable
     {
 
         @Override
@@ -97,14 +167,15 @@ public class order_list_fragment extends Fragment
         }
 
         ArrayList<ClientRequest> list;
+        ArrayList<ClientRequest> copylist;
 
         //ajouter un constructeur prenant en entrée une liste
         public OrderAdapter(ArrayList<ClientRequest> list) {
             this.list = list;
+            copylist=new ArrayList<>(list);
         }
 
-        //cette fonction permet de créer les viewHolder
-        //et par la même indiquer la vue à inflater (à partir des layout xml)
+
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_layout,viewGroup,false);
@@ -123,6 +194,44 @@ public class order_list_fragment extends Fragment
             return list.size();
         }
 
+        @Override
+        public Filter getFilter() {
+            return exampleFilter;
+        }
+
+        private Filter exampleFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                ArrayList<ClientRequest> filteredList = new ArrayList<ClientRequest>();
+
+                if (constraint == null || constraint.length() == 0) {
+                    filteredList.addAll(copylist);
+                } else {
+                    String filterPattern = constraint.toString().trim();
+
+                    for (ClientRequest item : copylist) {
+                        if (item.getDestination().contains(filterPattern)) {
+                            filteredList.add(item);
+                        }
+                    }
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                copylist.clear();
+                copylist.addAll((ArrayList) results.values);
+                notifyDataSetChanged();
+            }
+        };
+
     }
+
+
 
 }

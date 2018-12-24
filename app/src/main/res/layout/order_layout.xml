@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="60dp"
+    android:layout_width="match_parent" android:layout_height="65dp"
     android:gravity="center">
 
 
@@ -28,30 +28,36 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            >
+            android:layout_marginLeft="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Name"/>
-            <EditText
+                android:text="@string/Name"
+                android:textColor="#f50404"
+                android:textStyle="bold"
+                />
+            <TextView
                 android:id="@+id/NameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Destination"/>
-            <EditText
+                android:text="@string/Destination"
+                android:textColor="#f50404"
+                android:textStyle="bold"/>
+            <TextView
                 android:id="@+id/DestinationLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,13 +68,16 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Distance"/>
-            <EditText
+                android:text="@string/Distance"
+                android:textColor="#f50404"
+                android:textStyle="bold"/>
+            <TextView
                 android:id="@+id/DistanceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
