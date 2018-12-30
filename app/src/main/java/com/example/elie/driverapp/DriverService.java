@@ -79,12 +79,11 @@ public class DriverService extends Service
             public void OnDataAdded(ClientRequest obj)
             {
 
-                if(obj.getDataTime() < LoginTime)
-                {
+
                     Intent myintent=new Intent("New order");
                     myintent.putExtra("Destination",obj.getDestination());
                     sendBroadcast(myintent);
-                }
+
                 //notifs(
             }
 
