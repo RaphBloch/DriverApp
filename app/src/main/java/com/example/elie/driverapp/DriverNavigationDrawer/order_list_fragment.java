@@ -76,7 +76,7 @@ public class order_list_fragment extends Fragment
         myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
 
-        
+
 
 
 

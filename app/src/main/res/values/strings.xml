@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">DriverApp</string>
+    <string name="app_name">Driver Application</string>
+    <string name="get_taxi_name">Get Taxi</string>
     <string name="Register">Sign In</string>
     <string name="Mail">E-Mail</string>
     <string name="Name">Name</string>
@@ -11,6 +12,7 @@
     <string name="Enter">Enter your Name</string>
     <string name="EnterPassword">Please enter a Password</string>
     <string name="Password">Password</string>
+    <string name="Confirmation2">Confirm your password</string>
     <string name="Welcome">Welcome</string>
     <string name="Confirmation">Please enter your password again </string>
     <string name="Login">Login</string>
