@@ -61,6 +61,7 @@ public class order_list_fragment extends Fragment
 
 
     View myview;
+   EditText filter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -76,46 +77,29 @@ public class order_list_fragment extends Fragment
         myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
 
-        
+        filter=(EditText) myview.findViewById(R.id.filtre);
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    myadapter.getFilter().filter(s.toString());
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         return myview;
     }
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {SearchView searchView = (SearchView) item.getActionView();
-
-            searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    myadapter.getFilter().filter(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    myadapter.getFilter().filter(newText);
-                    return false;
-                }
-            });
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -207,7 +191,7 @@ public class order_list_fragment extends Fragment
                 if (constraint == null || constraint.length() == 0) {
                     filteredList.addAll(copylist);
                 } else {
-                    String filterPattern = constraint.toString().trim();
+                    String filterPattern = constraint.toString();
 
                     for (ClientRequest item : copylist) {
                         if (item.getDestination().contains(filterPattern)) {

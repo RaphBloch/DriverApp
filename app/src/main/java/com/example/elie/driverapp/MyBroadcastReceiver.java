@@ -49,7 +49,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             {
-                notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+                notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notification {s", NotificationManager.IMPORTANCE_HIGH);
                 notificationChannel.setDescription("Channel description");
 
                 notificationChannel.enableLights(true);
@@ -66,20 +66,38 @@ public class MyBroadcastReceiver extends BroadcastReceiver
             final NotificationCompat.Builder b = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
 
 
-
-
+        if(intent.getAction().equals("New Order"))
+        {
+            String destination= intent.getStringExtra("Destination");
             b.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.logo7_hdpi)
-                    .setContentTitle("New Order")
-                    .setContentText("You have a  new Order")
+                    .setContentTitle("New Waiting Order")
+                    .setContentText("You have a  new Waiting Order !!!" + destination)
                     .setDefaults(Notification.DEFAULT_LIGHTS)
                     .setContentIntent(contentIntent)
                     .setContentInfo("Info");
 
 
             notificationManager.notify(1, b.build());
+        }
+        if(intent.getAction().equals("Finished Order"))
+        {
+            b.setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.logo7_hdpi)
+                    .setContentTitle("New Waiting Order")
+                    .setContentText("The order is now taken !!!")
+                    .setDefaults(Notification.DEFAULT_LIGHTS)
+                    .setContentIntent(contentIntent)
+                    .setContentInfo("Info");
+
+
+            notificationManager.notify(1, b.build());
+        }
+
         }
 
 

@@ -76,6 +76,8 @@ public class DriverActivity extends AppCompatActivity
     NotificationManager notificationManager;
 
 
+
+
     public BroadcastReceiver myReceiver = new BroadcastReceiver(){
         @Override
         public void onReceive(Context context,Intent intent){
@@ -93,7 +95,9 @@ public class DriverActivity extends AppCompatActivity
                 new MyBroadcastReceiver(),
                 new IntentFilter(Intent.ACTION_TIME_TICK));
 
+
         setContentView(R.layout.activity_driver2);
+        startService(new Intent(getBaseContext(),DriverService.class));
         locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener=new LocationListener() {
             @Override
@@ -159,7 +163,7 @@ public class DriverActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.driver, menu);
 
         return true;
     }
@@ -172,7 +176,7 @@ public class DriverActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
+        if (id == R.id.action_settings) {
             return true;
         }
 

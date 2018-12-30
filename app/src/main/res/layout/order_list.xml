@@ -15,10 +15,11 @@
             android:text="@string/Welcome" />
 
         <EditText
+            android:id="@+id/filtre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:hint="@string/Filtre"/>
 
         <ScrollView
             android:layout_width="match_parent"

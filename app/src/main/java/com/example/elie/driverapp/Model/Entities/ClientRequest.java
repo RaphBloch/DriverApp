@@ -16,6 +16,7 @@ public class ClientRequest implements Serializable
     private double DepartureLatitude;
     private double ArrivalLongitude;
     private double ArrivalLatitude;
+    private long DataTime;
     private int DriverId;
 
 
@@ -49,6 +50,7 @@ public class ClientRequest implements Serializable
         ArrivalLatitude=c.ArrivalLatitude;
         ArrivalLongitude=c.ArrivalLongitude;
         Destination=c.Destination;
+
         DriverId = c.DriverId;
     }
 
@@ -130,6 +132,14 @@ public class ClientRequest implements Serializable
 
     public void setDepartureLongitude(double departureLongitude) {
         DepartureLongitude = departureLongitude;
+    }
+
+    public long getDataTime() {
+        return DataTime;
+    }
+
+    public void setDataTime(long dataTime) {
+        DataTime = dataTime;
     }
 
     public double getDepartureLatitude() {

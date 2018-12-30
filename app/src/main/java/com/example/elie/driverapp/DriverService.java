@@ -46,9 +46,6 @@ public class DriverService extends Service
 
 
 {
-
-
-
     int MY_NOTFICATION_ID;
 
     final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
@@ -61,6 +58,7 @@ public class DriverService extends Service
 
     NotificationManager notificationManager;
 
+    long LoginTime;
 
     public DriverService()
     {
@@ -69,21 +67,25 @@ public class DriverService extends Service
 
     @Override
     public void onCreate() {
+
         super.onCreate();
+        LoginTime=(System.currentTimeMillis()/1000);
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
         FireBase_DSManager.notifyToClientList(new FireBase_DSManager.NotifyDataChange<ClientRequest>() {
-            @Override
+
             public void OnDataAdded(ClientRequest obj)
             {
-                        Intent myintent=new Intent();
-                        sendBroadcast(myintent);
 
-
-                        //notifs();
-
+                if(obj.getDataTime() < LoginTime)
+                {
+                    Intent myintent=new Intent("New order");
+                    myintent.putExtra("Destination",obj.getDestination());
+                    sendBroadcast(myintent);
+                }
+                //notifs(
             }
 
             @Override
