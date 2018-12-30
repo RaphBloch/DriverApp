@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Controller.RegisterActivity"
-    android:background="@drawable/fond_app_hdpi">
+    android:background="@drawable/gradientbackgroun">
 
 
     <LinearLayout
@@ -19,14 +19,15 @@
         android:layout_marginRight="10dp">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo_hdpi"/>
+            android:src="@drawable/logo7_hdpi"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/ID"
@@ -91,11 +92,11 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <TextView
+        <!--TextView
             android:id="@+id/Confirmation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Confirmation" />
+            android:text="@string/Confirmation" /-->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -105,38 +106,47 @@
                 android:id="@+id/Password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Password"
+                android:hint="@string/Confirmation2"
                 android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
 
 
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="30dp">
 
     <Button
         android:id="@+id/Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:text="@string/Register"
-        android:background="@drawable/background_button"/>
+        android:background="@drawable/background_button"
+        android:text="@string/Register" />
 
     <Button
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="center"
-        android:text="@string/Cancel"
-        android:background="@drawable/background_button"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginRight="67dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_button"
+        android:text="@string/Cancel" />
 
-</LinearLayout>
+</RelativeLayout>
 
 
     </LinearLayout>
