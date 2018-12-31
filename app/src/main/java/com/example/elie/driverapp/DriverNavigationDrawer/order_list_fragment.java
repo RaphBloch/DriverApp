@@ -27,9 +27,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -73,12 +75,19 @@ public class order_list_fragment extends Fragment implements TextWatcher
         RecyclerView listView = (RecyclerView) myview.findViewById(R.id.listorder);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         myadapter=new OrderAdapter(clientslist);
+        myadapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(),clientslist.get(position).toString(),Toast.LENGTH_LONG).show();
+            }
+        });
         setHasOptionsMenu(true);
         myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
-        
 
-        myfilter=(EditText) myview.findViewById(R.id.filtre);
+
+
+        myfilter = (EditText) myview.findViewById(R.id.filtre);
         myfilter.addTextChangedListener(this);
 
 
@@ -111,89 +120,6 @@ public class order_list_fragment extends Fragment implements TextWatcher
     public void afterTextChanged(Editable s)
     {
         filter(s.toString());
-    }
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-
-
-        TextView Name ;
-        TextView Destination;
-        TextView Distance ;
-
-        //itemView est la vue correspondante à 1 cellule
-        public MyViewHolder(View itemView) {
-            super(itemView);
-
-            Name= (TextView) itemView.findViewById(R.id.NameLayout);
-            Destination=(TextView) itemView.findViewById(R.id.DestinationLayout);
-            Distance=(TextView) itemView.findViewById(R.id.DistanceLayout);
-
-        }
-
-
-        public void bind(ClientRequest myObject){
-            Name.setText(myObject.getName());
-            Destination.setText(myObject.getDestination());
-            Distance.setText(String.valueOf(getDistance(myObject) + "Km"));
-        }
-
-        private float getDistance(ClientRequest c) {
-            float[] results = new float[2];
-            Location.distanceBetween(c.getDepartureLatitude(),c.getDepartureLongitude(),
-                    c.getArrivalLatitude(),c.getArrivalLongitude(),results);
-
-            return (int)results[0]/1000;
-
-
-        }
-    }
-
-
-
-     public class OrderAdapter extends RecyclerView.Adapter<MyViewHolder>
-    {
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        ArrayList<ClientRequest> list;
-        ArrayList<ClientRequest> copylist;
-
-        //ajouter un constructeur prenant en entrée une liste
-        public OrderAdapter(ArrayList<ClientRequest> list) {
-            this.list = list;
-        }
-
-
-        public void FilterList(ArrayList<ClientRequest> filterlist)
-        {
-            this.list=filterlist;
-            notifyDataSetChanged();
-        }
-
-
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_layout,viewGroup,false);
-            return new MyViewHolder(view);
-        }
-
-        //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
-        @Override
-        public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
-            ClientRequest myObject = list.get(position);
-            myViewHolder.bind(myObject);
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-
     }
 
 }
