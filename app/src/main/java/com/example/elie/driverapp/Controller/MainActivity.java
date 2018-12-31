@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity
     {
         ComponentName componentName = new ComponentName(MainActivity.this,DriverActivity.class);
         Intent intent=new Intent();
+        intent.putExtra("mail",MyMail.getText().toString());
         intent.setComponent(componentName);
         startActivity(intent);
 

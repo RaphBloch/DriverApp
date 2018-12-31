@@ -122,17 +122,9 @@ public class FireBase_DSManager implements Backend
     public static void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
 
     {
-        if(notifyDataChange !=  null)
-        {
-            if(clientRefChildEventListener != null)
-            {
-                notifyDataChange.OnFailure(new Exception("No change"));
-                return;
-            }
 
-            //ClientsList.clear();
-
-        clientRefChildEventListener= new ChildEventListener() {
+        ClientsRef.orderByChild("DataTime").startAt(Calendar.getInstance().getTimeInMillis()).addChildEventListener(
+        new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -178,11 +170,12 @@ public class FireBase_DSManager implements Backend
             {
                 notifyDataChange.OnFailure(databaseError.toException());
             }
-        };
+        });
 
-            ClientsRef.addChildEventListener(clientRefChildEventListener);
-        }
     }
+
+
+
 
 
        public static  ArrayList<ClientRequest> WaitingClients()

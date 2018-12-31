@@ -44,7 +44,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class order_list_fragment extends Fragment
+public class order_list_fragment extends Fragment implements TextWatcher
 {
 
     ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(FireBase_DSManager.WaitingClients());
@@ -61,7 +61,7 @@ public class order_list_fragment extends Fragment
 
 
     View myview;
-   EditText filter;
+   EditText myfilter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -76,29 +76,42 @@ public class order_list_fragment extends Fragment
         setHasOptionsMenu(true);
         myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
+        
 
-        filter=(EditText) myview.findViewById(R.id.filtre);
-        filter.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        myfilter=(EditText) myview.findViewById(R.id.filtre);
+        myfilter.addTextChangedListener(this);
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    myadapter.getFilter().filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         return myview;
+    }
+    private void filter(String text)
+    {
+        ArrayList<ClientRequest> filteredList = new ArrayList<>();
+
+        for (ClientRequest item : clientslist) {
+            if (item.getDestination().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        myadapter.FilterList(filteredList);
     }
 
 
+        @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        filter(s.toString());
+    }
 
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filter(s.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable s)
+    {
+        filter(s.toString());
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -118,7 +131,7 @@ public class order_list_fragment extends Fragment
 
         }
 
-        //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
+
         public void bind(ClientRequest myObject){
             Name.setText(myObject.getName());
             Destination.setText(myObject.getDestination());
@@ -126,10 +139,6 @@ public class order_list_fragment extends Fragment
         }
 
         private float getDistance(ClientRequest c) {
-
-
-
-
             float[] results = new float[2];
             Location.distanceBetween(c.getDepartureLatitude(),c.getDepartureLongitude(),
                     c.getArrivalLatitude(),c.getArrivalLongitude(),results);
@@ -142,7 +151,7 @@ public class order_list_fragment extends Fragment
 
 
 
-    public class OrderAdapter extends RecyclerView.Adapter<MyViewHolder> implements Filterable
+     public class OrderAdapter extends RecyclerView.Adapter<MyViewHolder>
     {
 
         @Override
@@ -156,7 +165,13 @@ public class order_list_fragment extends Fragment
         //ajouter un constructeur prenant en entrée une liste
         public OrderAdapter(ArrayList<ClientRequest> list) {
             this.list = list;
-            copylist=new ArrayList<>(list);
+        }
+
+
+        public void FilterList(ArrayList<ClientRequest> filterlist)
+        {
+            this.list=filterlist;
+            notifyDataSetChanged();
         }
 
 
@@ -178,44 +193,10 @@ public class order_list_fragment extends Fragment
             return list.size();
         }
 
-        @Override
-        public Filter getFilter() {
-            return exampleFilter;
-        }
-
-        private Filter exampleFilter = new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                ArrayList<ClientRequest> filteredList = new ArrayList<ClientRequest>();
-
-                if (constraint == null || constraint.length() == 0) {
-                    filteredList.addAll(copylist);
-                } else {
-                    String filterPattern = constraint.toString();
-
-                    for (ClientRequest item : copylist) {
-                        if (item.getDestination().contains(filterPattern)) {
-                            filteredList.add(item);
-                        }
-                    }
-                }
-
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                copylist.clear();
-                copylist.addAll((ArrayList) results.values);
-                notifyDataSetChanged();
-            }
-        };
 
     }
 
-
-
 }
+
+
+

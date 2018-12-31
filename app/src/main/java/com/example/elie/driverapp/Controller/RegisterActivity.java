@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
+import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import com.example.elie.driverapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity
                 fireBase_dsManager.addDriver(d);
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
+                myintent.putExtra("mail",Mail.getText().toString());
                 myintent.setComponent(componentName);
                 startActivity(myintent);
 
@@ -117,12 +119,26 @@ public class RegisterActivity extends AppCompatActivity
     //Email Validation Using Regex
     public boolean emailValidator (String email)
     {
+        int i=0;
         Pattern pattern;
-        Matcher matcher;
-        final String EMAIL_PATTERN ="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[_A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
+        for (ClientRequest item : FireBase_DSManager.ClientsList)
+            if(email.toString().trim().equals(item.getMail()))
+                i++;
+        if (0<i)
+        {
+            Toast.makeText(this ,"The email already exits",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else
+        {
+            Matcher matcher;
+            final String EMAIL_PATTERN ="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[_A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+            pattern = Pattern.compile(EMAIL_PATTERN);
+            matcher = pattern.matcher(email);
+            return matcher.matches();
+        }
+
     }
 
     private Driver getDriver()

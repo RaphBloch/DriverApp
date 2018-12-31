@@ -15,6 +15,11 @@
     <string name="Confirmation2">Confirm your password</string>
     <string name="Welcome">Welcome</string>
     <string name="Filtre">Lieu</string>
+    <string name="SMS">SMS</string>
+    <string name="Call">Call</string>
+    <string name="EMail">eMail</string>
+    <string name="Start">Start</string>
+    <string name="Finish">Finish</string>
     <string name="Confirmation">Please enter your password again </string>
     <string name="Login">Login</string>
     <string name="Cancel">Cancel</string>
