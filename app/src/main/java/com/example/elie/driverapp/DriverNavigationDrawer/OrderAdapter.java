@@ -2,11 +2,14 @@ package com.example.elie.driverapp.DriverNavigationDrawer;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +25,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
     ArrayList<ClientRequest> list;
-    ArrayList<ClientRequest> copylist;
+   // ArrayList<ClientRequest> copylist;
     private Context context;
+
+
+    //ajouter un constructeur prenant en entrée une liste
+    public OrderAdapter(ArrayList<ClientRequest> list,Context context) {
+        this.list = list;
+        this.context=context;
+    }
 
     public interface OnItemClickListener
     {
@@ -32,10 +42,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder
+    public class MyViewHolder extends RecyclerView.ViewHolder 
     {
 
-        LinearLayout linearLayout;
+        private LinearLayout item_order;
         TextView Name ;
         TextView Destination;
         TextView Distance ;
@@ -47,7 +57,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             Name= (TextView) itemView.findViewById(R.id.NameLayout);
             Destination=(TextView) itemView.findViewById(R.id.DestinationLayout);
             Distance=(TextView) itemView.findViewById(R.id.DistanceLayout);
-            linearLayout=(LinearLayout)itemView.findViewById(R.id.Listlayout);
+            item_order=(LinearLayout)itemView.findViewById(R.id.item_order_id);
 
         }
 
@@ -76,11 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
 
-    //ajouter un constructeur prenant en entrée une liste
-    public OrderAdapter(ArrayList<ClientRequest> list,Context context) {
-        this.list = list;
-        this.context=context;
-    }
+
 
 
     public void FilterList(ArrayList<ClientRequest> filterlist)
@@ -93,19 +99,55 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType)
     {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_layout,viewGroup,false);
-        final Dialog mydialog= new Dialog(context);
-        mydialog.setContentView(R.layout.fragment_order_action_layout);
-
+        View view = LayoutInflater.from(context).inflate(R.layout.order_layout,viewGroup,false);
         final MyViewHolder myViewHolder=new MyViewHolder(view);
 
-        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        final Dialog mydialog= new Dialog(context);
+        mydialog.setContentView(R.layout.dialog_fragment_order);
+        mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+        myViewHolder.item_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                TextView dialogName = mydialog.findViewById(R.id.dialog_Name);
+                TextView dialogDestination = mydialog.findViewById(R.id.dialog_destination_adresse);
+                TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
+                Button dialogCallBtn = mydialog.findViewById(R.id.dialog_button_call);
+                Button dialogMessageBtn = mydialog.findViewById(R.id.dialog_button_Message);
+                Button dialogMailBtn = mydialog.findViewById(R.id.dialog_button_Mail);
+                Button dialogStartBtn = mydialog.findViewById(R.id.dialog_button_Start);
+                Button dialogFinishBtn = mydialog.findViewById(R.id.dialog_button_Finish);
 
-                TextView mActionOk = mydialog.findViewById(R.id.action_ok);
+                Toast.makeText(context ,"item n :"+ String.valueOf(myViewHolder.getAdapterPosition())+" voila",
+                        Toast.LENGTH_SHORT).show();
+                //dialogName.setText(list.get(myViewHolder.getAdapterPosition()).getName());
+
+
+                /*
+                *TextView mActionOk = mydialog.findViewById(R.id.action_ok);
                 TextView mActionCancel = mydialog.findViewById(R.id.action_cancel);
+
+                * mActionOk = view.findViewById(R.id.action_ok);
+        mActionCancel = view.findViewById(R.id.action_cancel);
+
+        mActionCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mydialog.dismiss();
+                    }
+                });
+
+                mActionOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    mydialog.dismiss();
+                    }
+                });
+
+                * */
                 //Toast.makeText(context,list.get(myViewHolder.getAdapterPosition()).toString(),Toast.LENGTH_LONG).show();
                 mydialog.show();
             }

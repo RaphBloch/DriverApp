@@ -20,8 +20,8 @@ public class MyFragmentDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View  view = inflater.inflate(R.layout.dialog_fragment_order, container ,false);
 
-        mActionOk = view.findViewById(R.id.action_ok);
-        mActionCancel = view.findViewById(R.id.action_cancel);
+        //mActionOk = view.findViewById(R.id.action_ok);
+        //mActionCancel = view.findViewById(R.id.action_cancel);
 
         mActionCancel.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,27 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="70dp">
 
-        <TextView
+        <!--TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Order Information"
             android:textSize="18sp"
             android:textColor="#000"
-            android:id="@+id/heading"/>
-
-
-
-
-
+            android:id="@+id/heading"/-->
 
         <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_Name"
+        android:text="Client Name"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:layout_marginTop="70dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_destination"
+                android:text="Destination :"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_destination_adresse"
+                android:text="Adresse destination "
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_position"
+                android:text="Position :"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_position_adresse"
+                android:text="Adresse Position "
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+        </LinearLayout>
+
+
+        <Button
+
+            android:drawableLeft="@drawable/dialog_local_phone_black_24dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button_call"
+            android:background="@drawable/backgroundbutton"
+            android:text="Call Him "
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="RtlCompat"
+            android:padding="12dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="20dp"
+            android:textSize="12dp"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button_Message"
+            android:background="@drawable/backgroundbutton"
+            android:text="Send Message "
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="RtlCompat"
+            android:padding="12dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="20dp"
+            android:drawableLeft="@drawable/dialog_message_black_24dp"
+            android:textSize="12dp"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button_Mail"
+            android:background="@drawable/backgroundbutton"
+            android:text="Send Mail"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="RtlCompat"
+            android:padding="12dp"
+            android:textAlignment="textStart"
+            android:drawablePadding="20dp"
+            android:drawableLeft="@drawable/dialog_mail_black_24dp"
+            android:textSize="12dp"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button_Start"
+            android:background="@drawable/background_button_start"
+            android:text="Start the order"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_button_Finish"
+            android:background="@drawable/background_button_finish"
+            android:text="Finish the order"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+
+
+
+        <!--TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OK"
@@ -41,8 +181,16 @@
             android:layout_marginRight="20dp"
             android:textSize="18sp"
             android:textColor="#33bbff"
-            android:id="@+id/action_cancel"/>
+            android:id="@+id/action_cancel"/-->
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/logop_hdpi"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        />
+</RelativeLayout>
