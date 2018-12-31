@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +30,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    public class MyViewHolder extends RecyclerView.ViewHolder
     {
 
-        private   OnItemClickListener clickListener;
+       LinearLayout linearLayout;
         TextView Name ;
         TextView Destination;
         TextView Distance ;
@@ -44,19 +45,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             Name= (TextView) itemView.findViewById(R.id.NameLayout);
             Destination=(TextView) itemView.findViewById(R.id.DestinationLayout);
             Distance=(TextView) itemView.findViewById(R.id.DistanceLayout);
+            linearLayout=(LinearLayout)itemView.findViewById(R.id.listlayout);
 
         }
 
-        @Override
-        public void onClick(View v) {
-            clickListener.onItemClick(v,getAdapterPosition());
-        }
 
-
-        public void setClickListener(OnItemClickListener myclicklistener)
-        {
-            this.clickListener=myclicklistener;
-        }
 
 
         public void bind(ClientRequest myObject){
@@ -101,12 +94,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(final MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(final MyViewHolder myViewHolder, final int position) {
         ClientRequest myObject = list.get(position);
         myViewHolder.bind(myObject);
-        myViewHolder.setClickListener(new OnItemClickListener() {
+        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onClick(View v) {
                 Toast.makeText(context,list.get(position).toString(),Toast.LENGTH_LONG).show();
             }
         });
