@@ -1,11 +1,13 @@
 package com.example.elie.driverapp.DriverNavigationDrawer;
 
+import android.content.Context;
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.R;
@@ -16,17 +18,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 {
 
 
+    ArrayList<ClientRequest> list;
+    ArrayList<ClientRequest> copylist;
+    private Context context;
+
     public interface OnItemClickListener
     {
         void onItemClick(View view, int position);
 
     }
 
-    private  static OnItemClickListener clickListener;
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
-
+        private   OnItemClickListener clickListener;
         TextView Name ;
         TextView Destination;
         TextView Distance ;
@@ -46,6 +52,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             clickListener.onItemClick(v,getAdapterPosition());
         }
 
+
+        public void setClickListener(OnItemClickListener myclicklistener)
+        {
+            this.clickListener=myclicklistener;
+        }
+
+
         public void bind(ClientRequest myObject){
             Name.setText(myObject.getName());
             Destination.setText(myObject.getDestination());
@@ -64,12 +77,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
 
-    ArrayList<ClientRequest> list;
-    ArrayList<ClientRequest> copylist;
+
 
     //ajouter un constructeur prenant en entrée une liste
-    public OrderAdapter(ArrayList<ClientRequest> list) {
+    public OrderAdapter(ArrayList<ClientRequest> list,Context context) {
         this.list = list;
+        this.context=context;
     }
 
 
@@ -77,10 +90,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     {
         this.list=filterlist;
         notifyDataSetChanged();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener myclickListener) {
-        clickListener = myclickListener;
     }
 
 
@@ -92,9 +101,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(final MyViewHolder myViewHolder, int position) {
         ClientRequest myObject = list.get(position);
         myViewHolder.bind(myObject);
+        myViewHolder.setClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(context,list.get(position).toString(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

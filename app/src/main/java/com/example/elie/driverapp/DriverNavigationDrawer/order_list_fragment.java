@@ -74,14 +74,7 @@ public class order_list_fragment extends Fragment implements TextWatcher
         myview=inflater.inflate(R.layout.order_list,container,false);
         RecyclerView listView = (RecyclerView) myview.findViewById(R.id.listorder);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myadapter=new OrderAdapter(clientslist);
-        myadapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(),clientslist.get(position).toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-        setHasOptionsMenu(true);
+        myadapter=new OrderAdapter(clientslist,getContext());
         myadapter.notifyDataSetChanged();
         listView.setAdapter(myadapter);
 
