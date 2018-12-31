@@ -31,6 +31,7 @@ import android.view.View;
 import android.support.design.widget.NavigationView;
 
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
+import com.example.elie.driverapp.Model.Entities.Driver;
 import  com.example.elie.driverapp.R;
 import android.support.v4.view.GravityCompat;
 
@@ -76,6 +77,8 @@ public class DriverActivity extends AppCompatActivity
     NotificationManager notificationManager;
 
 
+    Driver d =new Driver();
+
 
 
     public BroadcastReceiver myReceiver = new BroadcastReceiver(){
@@ -97,6 +100,14 @@ public class DriverActivity extends AppCompatActivity
 
 
         setContentView(R.layout.activity_driver2);
+        Intent intent=getIntent();
+
+        String mail=intent.getStringExtra("mail");
+        for (Driver item : FireBase_DSManager.DriversList)
+        {      if(item.getMail().equals(mail))
+                    d=new Driver(d);
+        }
+
         startService(new Intent(getBaseContext(),DriverService.class));
         locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener=new LocationListener() {

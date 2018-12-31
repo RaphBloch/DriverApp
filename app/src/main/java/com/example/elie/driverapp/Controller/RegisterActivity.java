@@ -53,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity
                 Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
                 FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
                 fireBase_dsManager.addDriver(d);
+                FireBase_DSManager.DriversList.add(d);
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());

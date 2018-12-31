@@ -56,11 +56,6 @@ public class order_list_fragment extends Fragment implements TextWatcher
     private OrderAdapter myadapter;
 
 
-    /*DriverActivity essai=(DriverActivity)getActivity();
-
-
-    double longitude= essai.getlongitude();
-    double latitude=essai.getlatitude();*/
 
 
 

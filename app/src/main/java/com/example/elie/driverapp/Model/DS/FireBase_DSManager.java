@@ -55,7 +55,7 @@ public class FireBase_DSManager implements Backend
     static DatabaseReference ClientsRef;
     static DatabaseReference DriversRef;
     public static List<ClientRequest> ClientsList;
-    static List<Driver> DriversList;
+    public static List<Driver> DriversList;
     public static ChildEventListener clientRefChildEventListener;
     public static ChildEventListener driverRefChildEventListener;
 

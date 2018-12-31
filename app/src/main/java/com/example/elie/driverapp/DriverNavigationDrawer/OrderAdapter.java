@@ -1,5 +1,6 @@
 package com.example.elie.driverapp.DriverNavigationDrawer;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
 
-       LinearLayout linearLayout;
+        LinearLayout linearLayout;
         TextView Name ;
         TextView Destination;
         TextView Distance ;
@@ -46,7 +47,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             Name= (TextView) itemView.findViewById(R.id.NameLayout);
             Destination=(TextView) itemView.findViewById(R.id.DestinationLayout);
             Distance=(TextView) itemView.findViewById(R.id.DistanceLayout);
-            linearLayout=(LinearLayout)itemView.findViewById(R.id.listlayout);
+            linearLayout=(LinearLayout)itemView.findViewById(R.id.Listlayout);
 
         }
 
@@ -73,6 +74,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
 
+
+
     //ajouter un constructeur prenant en entrée une liste
     public OrderAdapter(ArrayList<ClientRequest> list,Context context) {
         this.list = list;
@@ -88,8 +91,27 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType)
+    {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_layout,viewGroup,false);
+        final Dialog mydialog= new Dialog(context);
+        mydialog.setContentView(R.layout.fragment_order_action_layout);
+
+        final MyViewHolder myViewHolder=new MyViewHolder(view);
+
+        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                TextView mActionOk = mydialog.findViewById(R.id.action_ok);
+                TextView mActionCancel = mydialog.findViewById(R.id.action_cancel);
+                //Toast.makeText(context,list.get(myViewHolder.getAdapterPosition()).toString(),Toast.LENGTH_LONG).show();
+                mydialog.show();
+            }
+        });
+
+
         return new MyViewHolder(view);
     }
 
@@ -98,16 +120,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder myViewHolder, final int position) {
         ClientRequest myObject = list.get(position);
         myViewHolder.bind(myObject);
-        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-               // MyFragmentDialog dialog = new MyFragmentDialog();
-               // dialog.show(dialog.getFragmentManager(),"MyFragmentDialog");
-
-                Toast.makeText(context,list.get(position).toString(),Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
