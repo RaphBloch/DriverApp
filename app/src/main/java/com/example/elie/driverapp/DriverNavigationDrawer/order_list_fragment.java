@@ -2,6 +2,7 @@ package com.example.elie.driverapp.DriverNavigationDrawer;
 
 
 import com.example.elie.driverapp.Controller.DriverActivity;
+import com.example.elie.driverapp.Fragment_order_information;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import  com.example.elie.driverapp.R;
@@ -9,6 +10,7 @@ import  com.example.elie.driverapp.R;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -82,6 +84,13 @@ public class order_list_fragment extends Fragment implements TextWatcher
 
         myfilter = (EditText) myview.findViewById(R.id.filtre);
         myfilter.addTextChangedListener(this);
+
+
+
+        Fragment_order_information fragment_order_information = new Fragment_order_information();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.container , fragment_order_information , "InfoFragment");
+        transaction.commit();
 
 
         return myview;

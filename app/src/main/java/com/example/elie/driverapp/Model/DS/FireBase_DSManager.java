@@ -123,8 +123,7 @@ public class FireBase_DSManager implements Backend
 
     {
 
-        ClientsRef.orderByChild("DataTime").startAt(Calendar.getInstance().getTimeInMillis()).addChildEventListener(
-        new ChildEventListener() {
+       clientRefChildEventListener=  new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -170,7 +169,9 @@ public class FireBase_DSManager implements Backend
             {
                 notifyDataChange.OnFailure(databaseError.toException());
             }
-        });
+        };
+
+       ClientsRef.addChildEventListener(clientRefChildEventListener);
 
     }
 

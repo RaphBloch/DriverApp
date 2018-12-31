@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
+import com.example.elie.driverapp.MyFragmentDialog;
 import com.example.elie.driverapp.R;
 
 import java.util.ArrayList;
@@ -100,6 +101,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+               // MyFragmentDialog dialog = new MyFragmentDialog();
+               // dialog.show(dialog.getFragmentManager(),"MyFragmentDialog");
+
                 Toast.makeText(context,list.get(position).toString(),Toast.LENGTH_LONG).show();
             }
         });
