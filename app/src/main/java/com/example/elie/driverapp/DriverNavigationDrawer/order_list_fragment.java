@@ -60,7 +60,7 @@ public class order_list_fragment extends Fragment implements TextWatcher
 
 
     View myview;
-   EditText myfilter;
+    EditText myfilter;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
