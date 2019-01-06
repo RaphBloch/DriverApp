@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class order_finished_fragment extends Fragment
 {
-    /*View myview;
+    View myview;
 
     ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(FireBase_DSManager.FinishedClients());
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -92,5 +92,5 @@ public class order_finished_fragment extends Fragment
             return list.size();
         }
 
-    }*/
+    }
 }

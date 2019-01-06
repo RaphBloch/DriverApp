@@ -13,8 +13,9 @@
     <string name="EnterPassword">Please enter a Password</string>
     <string name="Password">Password</string>
     <string name="Confirmation2">Confirm your password</string>
-    <string name="Welcome">Welcome</string>
-    <string name="Filtre">Lieu</string>
+    <string name="Welcome"> Welcome  </string>
+    <string name="littleTitle">Here are all the new Order :</string>
+    <string name="Filtre">place where you want work</string>
     <string name="SMS">SMS</string>
     <string name="Call">Call</string>
     <string name="EMail">eMail</string>

@@ -74,7 +74,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.logo7_hdpi)
                     .setContentTitle("New Waiting Order")
-                    .setContentText("You have a  new Waiting Order !!!" + destination)
+                    .setContentText("You have a  new Waiting Order !!!" )
                     .setDefaults(Notification.DEFAULT_LIGHTS)
                     .setContentIntent(contentIntent)
                     .setContentInfo("Info");

@@ -38,6 +38,11 @@ public class RegisterActivity extends AppCompatActivity
     Button CancelBtn;
     FirebaseAuth auth=FirebaseAuth.getInstance();
 
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
