@@ -31,25 +31,7 @@ public class FireBase_DSManager implements Backend
      *      OnProgress : It tells us the progress of the load of the data with a message
      *
      */
-    public interface Action<T>
-    {
-        void OnSuccess(T obj);
 
-        void OnProgress(String status,double percent);
-
-        void OnFailure(Exception exception);
-    }
-
-
-    public interface NotifyDataChange<T>
-    {
-        void OnDataChanged(T obj);
-
-
-        void OnDataAdded(T obj);
-
-        void OnFailure(Exception exception);
-    }
 
     // creation of my databaseReference
     public static DatabaseReference ClientsRef;
@@ -99,7 +81,7 @@ public class FireBase_DSManager implements Backend
     }
 
 
-    private static void addDriverToFireBase(final Driver driver,final Action<String> action)
+    private  void addDriverToFireBase(final Driver driver,final Action<String> action)
     {
         String key=String.valueOf(driver.getID());
         DriversRef.child(key).setValue(driver).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -119,9 +101,12 @@ public class FireBase_DSManager implements Backend
 
 
 
-    public static void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
+    public  void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
 
     {
+
+
+
 
        clientRefChildEventListener=  new ChildEventListener() {
             @Override
@@ -177,9 +162,56 @@ public class FireBase_DSManager implements Backend
 
 
 
+    public  void notifyToDriverList(final NotifyDataChange<Driver> notifyDataChange)
+
+    {
 
 
-       public static  ArrayList<ClientRequest> WaitingClients()
+
+
+        driverRefChildEventListener=  new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                 Driver d  = dataSnapshot.getValue(Driver.class);
+                String ID = dataSnapshot.getKey();
+                d.setID(Integer.parseInt(ID));
+                DriversList.add(d);
+                notifyDataChange.OnDataAdded(d);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+
+            {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                notifyDataChange.OnFailure(databaseError.toException());
+            }
+        };
+
+        DriversRef.addChildEventListener(driverRefChildEventListener);
+
+    }
+
+
+
+    public   ArrayList<ClientRequest> WaitingClients()
         {
 
             ArrayList<ClientRequest> mylist=new ArrayList<>();
@@ -196,7 +228,7 @@ public class FireBase_DSManager implements Backend
         }
 
 
-    public static ArrayList<ClientRequest> FinishedClients()
+    public ArrayList<ClientRequest> FinishedClients()
     {
 
         ArrayList<ClientRequest> mylist=new ArrayList<>();
@@ -216,7 +248,7 @@ public class FireBase_DSManager implements Backend
 
 
 
-        public static void   stopNotifyToClientList()
+        public void   stopNotifyToClientList()
          {
 
                     if  (clientRefChildEventListener  !=  null )

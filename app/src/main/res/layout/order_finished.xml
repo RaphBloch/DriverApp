@@ -5,28 +5,23 @@
     android:orientation="vertical"
     android:padding="5dp"
     android:layout_margin="15dp"
-    android:id="@+id/list_finish_order_layout">
+    android:id="@+id/order_finish_layout">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="5dp"
-            android:inputType="textPersonName"
-            android:text="Welcome to the Finish Order"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        android:text="Welcome to the Finish Order"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 
-    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"

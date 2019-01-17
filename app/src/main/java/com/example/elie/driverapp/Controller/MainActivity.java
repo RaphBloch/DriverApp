@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elie.driverapp.DriverService;
+import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.R;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     //region ***** Fields *****
 
 
-
+    Backend_Factory backend_factory=new Backend_Factory();
 
 
     //public static int i=4;
@@ -145,11 +146,16 @@ public class MainActivity extends AppCompatActivity
 
     private void GoToDriver()
     {
+
+
+
         ComponentName componentName = new ComponentName(MainActivity.this,DriverActivity.class);
         Intent intent=new Intent();
         intent.putExtra("mail",MyMail.getText().toString());
         intent.setComponent(componentName);
         startActivity(intent);
+
+
 
 
     }

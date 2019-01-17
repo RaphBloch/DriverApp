@@ -61,7 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder 
+    public static class MyViewHolder extends RecyclerView.ViewHolder
     {
 
         private LinearLayout item_order;

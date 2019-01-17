@@ -135,16 +135,16 @@ public class DriverActivity extends AppCompatActivity
 
         String mail=intent.getStringExtra("mail");
         Toast.makeText(this,mail,Toast.LENGTH_LONG).show();
-        /*for (Driver item : FireBase_DSManager.DriversList)
+        for (Driver item : FireBase_DSManager.DriversList)
         {      if(item.getMail().equals(mail))
                     d=new Driver(d);
-        }*/
+        }
 
 
 
 
 
-        d.setID(999);
+
 
         startService(new Intent(getBaseContext(),DriverService.class));
         locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);

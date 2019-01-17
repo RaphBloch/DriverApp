@@ -3,6 +3,7 @@ package com.example.elie.driverapp.DriverNavigationDrawer;
 
 import com.example.elie.driverapp.Controller.DriverActivity;
 import com.example.elie.driverapp.Fragment_order_information;
+import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import  com.example.elie.driverapp.R;
@@ -48,10 +49,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class order_list_fragment extends Fragment implements TextWatcher
+public class order_list_fragment extends Fragment  implements TextWatcher
 {
+    Backend_Factory backend_factory=new Backend_Factory();
+    FireBase_DSManager f=(FireBase_DSManager)backend_factory.getfactory();
 
-    ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(FireBase_DSManager.WaitingClients());
+    ArrayList<ClientRequest> clientslist = new ArrayList<ClientRequest>(f.WaitingClients());
 
     private OrderAdapter myadapter;
 
@@ -82,10 +85,6 @@ public class order_list_fragment extends Fragment implements TextWatcher
 
 
 
-        Fragment_order_information fragment_order_information = new Fragment_order_information();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.container , fragment_order_information , "InfoFragment");
-        transaction.commit();
 
 
         return myview;

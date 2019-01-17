@@ -1,5 +1,7 @@
 package com.example.elie.driverapp.Model.Backend;
 import com.example.elie.driverapp.Model.DS.*;
+import com.example.elie.driverapp.Model.Entities.ClientRequest;
+import com.example.elie.driverapp.Model.Entities.Driver;
 
 
 public class Backend_Factory

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerViewAccessibilityDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +32,6 @@ public class FinishOrderAdapter extends RecyclerView.Adapter<FinishOrderAdapter.
         d=(DriverActivity) context;
     }
 
-    public interface OnItemClickListener
-    {
-        void onItemClick(View view, int position);
-
-    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder
@@ -54,10 +48,8 @@ public class FinishOrderAdapter extends RecyclerView.Adapter<FinishOrderAdapter.
             super(itemView);
 
             Name= (TextView) itemView.findViewById(R.id.finish_name);
-            Destination=(TextView) itemView.findViewById(R.id.finish_destination);
-            Distance=(TextView) itemView.findViewById(R.id.finish_distance);
-            Position=(TextView)itemView.findViewById(R.id.finish_position) ;
-            item_finish_order=(LinearLayout)itemView.findViewById(R.id.list_finish_order_layout);
+
+            item_finish_order=(LinearLayout)itemView.findViewById(R.id.linear_finish_order);
 
         }
 
@@ -67,8 +59,8 @@ public class FinishOrderAdapter extends RecyclerView.Adapter<FinishOrderAdapter.
         public void bind(ClientRequest myObject){
             Name.setText(myObject.getName());
             //Position.setText(d.);
-            Destination.setText(myObject.getDestination());
-            Distance.setText(String.valueOf(getDistance(myObject) + "Km"));
+           // Destination.setText(myObject.getDestination());
+            //Distance.setText(String.valueOf(getDistance(myObject) + "Km"));
         }
 
         private float getDistance(ClientRequest c) {
@@ -86,9 +78,8 @@ public class FinishOrderAdapter extends RecyclerView.Adapter<FinishOrderAdapter.
     Dialog mydialog;
 
 
-    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder( ViewGroup parent, int itemType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.finished_layout,parent,false);
         final MyViewHolder myViewHolder = new MyViewHolder(view);
@@ -98,7 +89,10 @@ public class FinishOrderAdapter extends RecyclerView.Adapter<FinishOrderAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder,final int position) {
+
+        ClientRequest myObject = list.get(position);
+        holder.bind(myObject);
 
     }
 

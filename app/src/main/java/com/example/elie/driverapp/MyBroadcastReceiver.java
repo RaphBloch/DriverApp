@@ -66,9 +66,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver
             final NotificationCompat.Builder b = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
 
 
-        if(intent.getAction().equals("New Order"))
-        {
-            String destination= intent.getStringExtra("Destination");
+
+
             b.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setWhen(System.currentTimeMillis())
@@ -82,27 +81,16 @@ public class MyBroadcastReceiver extends BroadcastReceiver
 
             notificationManager.notify(1, b.build());
         }
-        if(intent.getAction().equals("Finished Order"))
-        {
-            b.setAutoCancel(true)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.logo7_hdpi)
-                    .setContentTitle("New Waiting Order")
-                    .setContentText("The order is now taken !!!")
-                    .setDefaults(Notification.DEFAULT_LIGHTS)
-                    .setContentIntent(contentIntent)
-                    .setContentInfo("Info");
 
 
-            notificationManager.notify(1, b.build());
-        }
+
+
 
         }
 
 
 
-}
+
 
 
 

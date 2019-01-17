@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_order_list"
-            android:icon="@android:drawable/presence_away"
+            android:icon="@drawable/menu_local_taxi_black_24dp"
             android:title="Order List" />
         <item
             android:id="@+id/nav_order_finished"
-            android:icon="@android:drawable/sym_contact_card"
+            android:icon="@drawable/menu_storage_black_24dp"
             android:title="Order Gallery" />
 
 
@@ -20,7 +20,7 @@
         <menu>
             <item
                 android:id="@+id/nav_exit"
-                android:icon="@drawable/exit_hdpi"
+                android:icon="@drawable/menu_exit_to_app_black_24dp"
                 android:title="Exit" />
             <!--item
                 android:id="@+id/nav_share"

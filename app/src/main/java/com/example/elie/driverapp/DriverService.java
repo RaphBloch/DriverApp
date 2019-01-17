@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.example.elie.driverapp.Controller.DriverActivity;
 import com.example.elie.driverapp.Controller.MainActivity;
+import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
@@ -47,6 +48,8 @@ public class DriverService extends Service
 
 {
     int MY_NOTFICATION_ID;
+
+    Backend_Factory backend_factory=new Backend_Factory();
 
     final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
@@ -74,17 +77,21 @@ public class DriverService extends Service
 
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
-        FireBase_DSManager.notifyToClientList(new FireBase_DSManager.NotifyDataChange<ClientRequest>() {
+
+
+
+        FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
+
+
+       f.notifyToClientList(new FireBase_DSManager.NotifyDataChange<ClientRequest>() {
 
             public void OnDataAdded(ClientRequest obj)
             {
 
 
                     Intent myintent=new Intent("New order");
-                    myintent.putExtra("Destination",obj.getDestination());
                     sendBroadcast(myintent);
 
-                //notifs(
             }
 
             @Override
@@ -100,6 +107,7 @@ public class DriverService extends Service
 
             }
         });
+
 
         return START_STICKY ;
 
