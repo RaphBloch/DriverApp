@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.elie.driverapp.Model.Backend.Backend;
+import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
@@ -37,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity
     Button RegisterBtn;
     Button CancelBtn;
     FirebaseAuth auth=FirebaseAuth.getInstance();
+    Backend_Factory backend_factory=new Backend_Factory();
 
 
 
@@ -56,9 +59,28 @@ public class RegisterActivity extends AppCompatActivity
                 login();
                 Register();
                 Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
-                FireBase_DSManager fireBase_dsManager = new FireBase_DSManager();
-                fireBase_dsManager.addDriver(d);
-                FireBase_DSManager.DriversList.add(d);
+                FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
+                f.addDriver(d);
+
+                /*f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
+                    @Override
+                    public void OnDataChanged(Driver obj) {
+
+                    }
+
+                    @Override
+                    public void OnDataAdded(Driver obj) {
+
+                        //Toast.makeText(getApplicationContext(),"Welcome to our company",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void OnFailure(Exception exception) {
+
+                    }
+                });*/
+
+
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());

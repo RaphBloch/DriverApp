@@ -48,12 +48,13 @@ public class FireBase_DSManager implements Backend
         FirebaseDatabase data=FirebaseDatabase.getInstance();
         FirebaseAuth  auth=FirebaseAuth.getInstance();
         //The reference of my data of clients is Clients
+        DriversList = new ArrayList<Driver>();
         ClientsRef= data.getReference("Clients");
         DriversRef=data.getReference("Drivers");
         ClientsList=new ArrayList<ClientRequest>();
-        DriversList = new ArrayList<Driver>();
 
     }
+
 
 
     /***
@@ -108,7 +109,7 @@ public class FireBase_DSManager implements Backend
 
 
 
-       clientRefChildEventListener=  new ChildEventListener() {
+       ClientsRef.orderByChild("dataTime").startAt(Calendar.getInstance().getTime().getTime()).addChildEventListener(  new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -154,9 +155,8 @@ public class FireBase_DSManager implements Backend
             {
                 notifyDataChange.OnFailure(databaseError.toException());
             }
-        };
-
-       ClientsRef.addChildEventListener(clientRefChildEventListener);
+        });
+ //ClientsRef.addChildEventListener(clientRefChildEventListener);
 
     }
 
@@ -184,7 +184,19 @@ public class FireBase_DSManager implements Backend
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
 
             {
+                Driver  d = dataSnapshot.getValue(Driver.class);
+                String ID = dataSnapshot.getKey();
+                d.setID(Integer.parseInt(ID));
+                int i=0;
+                for (Driver D : DriversList )
+                {
 
+                    if(D.getID() == Integer.parseInt(ID) )
+                        DriversList.set(i,d);
+
+                    i++;
+                }
+                notifyDataChange.OnDataChanged(d);
 
             }
 

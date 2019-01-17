@@ -43,6 +43,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver
             final PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                     new Intent(context, DriverActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
+            String destination = intent.getStringExtra("dest");
+
             notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
@@ -73,7 +75,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.logo7_hdpi)
                     .setContentTitle("New Waiting Order")
-                    .setContentText("You have a  new Waiting Order !!!" )
+                    .setContentText("You have a  new Waiting Order !!!  "  +  destination )
                     .setDefaults(Notification.DEFAULT_LIGHTS)
                     .setContentIntent(contentIntent)
                     .setContentInfo("Info");

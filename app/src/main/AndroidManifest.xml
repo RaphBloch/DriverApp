@@ -37,15 +37,11 @@
 
         <receiver
             android:name=".MyBroadcastReceiver" >
-            <intent-filter>
-            <action android:name="android.intent.action.TIME_SET"/>
-            </intent-filter>
+
             <intent-filter>
                 <action android:name="new Order"/>
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
+
         </receiver>
 
 

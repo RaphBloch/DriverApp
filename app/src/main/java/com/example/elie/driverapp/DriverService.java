@@ -31,6 +31,7 @@ import android.net.Uri;
 
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -83,6 +84,9 @@ public class DriverService extends Service
         FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
 
 
+
+
+
        f.notifyToClientList(new FireBase_DSManager.NotifyDataChange<ClientRequest>() {
 
             public void OnDataAdded(ClientRequest obj)
@@ -90,7 +94,10 @@ public class DriverService extends Service
 
 
                     Intent myintent=new Intent("New order");
+                    myintent.putExtra("dest",obj.getDestination());
                     sendBroadcast(myintent);
+
+                //notifs(obj.getDestination());
 
             }
 
@@ -126,7 +133,7 @@ public class DriverService extends Service
     }
 
 
-    private void notifs()
+    private void notifs(String destination)
     {
 
         final PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -162,7 +169,7 @@ public class DriverService extends Service
                         .setWhen(System.currentTimeMillis())
                         .setSmallIcon(R.drawable.logo7_hdpi)
                         .setContentTitle("New Order")
-                        .setContentText("You have a  new Order")
+                        .setContentText("You have a  new Order to " + destination )
                         .setDefaults(Notification.DEFAULT_LIGHTS)
                         .setContentIntent(contentIntent)
                         .setContentInfo("Info");

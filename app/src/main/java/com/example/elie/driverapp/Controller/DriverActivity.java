@@ -31,6 +31,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 
+import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
 import  com.example.elie.driverapp.R;
@@ -66,6 +67,7 @@ public class DriverActivity extends AppCompatActivity
     public double latitude;
     LocationManager locationManager;
     LocationListener locationListener;
+    Backend_Factory backend_factory=new Backend_Factory();
     int MY_NOTFICATION_ID;
 
     final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
@@ -102,40 +104,23 @@ public class DriverActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // newOrder = (Button) this.findViewById(R.id.New_order_button);
-        //oldOrder = (Button) this.findViewById(R.id.Old_order_button);
 
-
-        /*newOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = new FragmentTransaction() {}
-                ft.replace(R.id.content_frame,new order_list_fragment());
-
-            }
-        });
-        oldOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new order_finished_fragment()).commit();
-
-            }
-        });
-*/
         registerReceiver(
                 new MyBroadcastReceiver(),
-                new IntentFilter(Intent.ACTION_TIME_TICK));
+                new IntentFilter("New order"));
 
 
         setContentView(R.layout.activity_driver2);
         Intent intent=getIntent();
 
+
         String mail=intent.getStringExtra("mail");
         Toast.makeText(this,mail,Toast.LENGTH_LONG).show();
-        for (Driver item : FireBase_DSManager.DriversList)
+        startService(new Intent(getBaseContext(),DriverService.class));
+
+        FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
+
+        for (Driver item : f.DriversList)
         {      if(item.getMail().equals(mail))
                     d=new Driver(d);
         }
@@ -146,7 +131,7 @@ public class DriverActivity extends AppCompatActivity
 
 
 
-        startService(new Intent(getBaseContext(),DriverService.class));
+
         locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener=new LocationListener() {
             @Override
