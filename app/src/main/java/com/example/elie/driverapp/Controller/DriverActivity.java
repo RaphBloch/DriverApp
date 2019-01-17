@@ -119,8 +119,9 @@ public class DriverActivity extends AppCompatActivity
         startService(new Intent(getBaseContext(),DriverService.class));
 
         FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
+        ArrayList<Driver> drivers=f.drivers();
 
-        for (Driver item : f.DriversList)
+        for (Driver item : drivers)
         {      if(item.getMail().equals(mail))
                     d=new Driver(d);
         }

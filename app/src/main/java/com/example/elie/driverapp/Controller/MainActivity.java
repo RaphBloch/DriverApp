@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.elie.driverapp.DriverService;
+import com.example.elie.driverapp.Model.Backend.Backend;
 import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.R;
 import com.example.elie.driverapp.Model.DS.FireBase_DSManager;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences sharedPreferences;
      private FirebaseAuth auth = FirebaseAuth.getInstance();
 
+    FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
+
 
     //endregion
     @Override
@@ -89,6 +92,24 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Store(v);
+                f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
+                    @Override
+                    public void OnDataChanged(Driver obj) {
+
+                    }
+
+                    @Override
+                    public void OnDataAdded(Driver obj) {
+                        Toast.makeText(getBaseContext(),"Essai",Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void OnFailure(Exception exception) {
+
+                    }
+                });
+
 
                 /*if(MyMail.getText().toString().equals(sharedPreferences.getString(Mail,""))
                         && Password.getText().toString().equals(sharedPreferences.getString(Pass,"")))

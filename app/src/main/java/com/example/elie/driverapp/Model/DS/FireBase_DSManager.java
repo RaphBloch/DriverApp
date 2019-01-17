@@ -2,6 +2,9 @@ package com.example.elie.driverapp.Model.DS;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.*;
 
 import com.example.elie.driverapp.Model.Backend.Backend;
@@ -55,7 +58,18 @@ public class FireBase_DSManager implements Backend
 
     }
 
+    public FireBase_DSManager()
 
+    {
+        if (ClientsRef!=null)
+        {
+            Log.d("ESSAI", "test");
+        }
+        if (DriversRef!=null)
+        {
+            Log.d("ESSAI", "test");
+        }
+    }
 
     /***
      *
@@ -167,8 +181,6 @@ public class FireBase_DSManager implements Backend
     {
 
 
-
-
         driverRefChildEventListener=  new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
@@ -224,20 +236,28 @@ public class FireBase_DSManager implements Backend
 
 
     public   ArrayList<ClientRequest> WaitingClients()
+    {
+
+        ArrayList<ClientRequest> mylist=new ArrayList<>();
+
+        for (ClientRequest  c : ClientsList )
         {
-
-            ArrayList<ClientRequest> mylist=new ArrayList<>();
-
-            for (ClientRequest  c : ClientsList )
-            {
-                if(c.getStatus()== ClientRequestStatus._Waiting)
-                    mylist.add(c);
-            }
-
-
-            return mylist;
-
+            if(c.getStatus()== ClientRequestStatus._Waiting)
+                mylist.add(c);
         }
+
+
+        return mylist;
+
+    }
+
+    public   ArrayList<Driver> drivers()
+    {
+
+        return (ArrayList)DriversList;
+
+    }
+
 
 
     public ArrayList<ClientRequest> FinishedClients()
