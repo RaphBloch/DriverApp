@@ -187,13 +187,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(AuthResult authResult) {
 
-                FireBase_DSManager.DriversRef.child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                String key=auth.getCurrentUser().getUid();
+                FireBase_DSManager.DriversRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Driver driver = dataSnapshot.getValue(Driver.class);
                         FireBase_DSManager.CurrentDriver = driver;
+                        GoToDriver();
             }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 

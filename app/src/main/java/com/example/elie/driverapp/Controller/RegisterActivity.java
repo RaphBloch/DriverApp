@@ -62,12 +62,11 @@ public class RegisterActivity extends AppCompatActivity
 
                 login();
                 d.setID(Integer.parseInt(ID.getText().toString().trim()));
-
                  d.setName(Name.getText().toString().trim());
                  d.setMail(Mail.getText().toString().trim());
                  d.setPhone(Phone.getText().toString().trim());
                 Register();
-                d.setUID(key);
+                d.setUID(auth.getCurrentUser().getUid());
                 f.addDriver(d);
                 FireBase_DSManager.CurrentDriver=d;
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
@@ -181,13 +180,15 @@ public class RegisterActivity extends AppCompatActivity
                     {
 
                         FirebaseUser user=auth.getCurrentUser();
-                        key=user.getUid();
 
                     }
                     else
+                    {
                         Toast.makeText(getBaseContext(),
                                 "Authentification failed",Toast.LENGTH_SHORT).show();
-                                finish();
+                        finish();
+                    }
+
 
                 }
             });
