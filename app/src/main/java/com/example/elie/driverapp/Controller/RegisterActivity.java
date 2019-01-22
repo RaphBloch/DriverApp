@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity
     Button CancelBtn;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     Backend_Factory backend_factory=new Backend_Factory();
-
+    FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
 
 
 
@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
         FindViews();
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,29 +59,7 @@ public class RegisterActivity extends AppCompatActivity
 
                 login();
                 Register();
-                Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
-                FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
-                f.addDriver(d);
 
-                /*f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
-                    @Override
-                    public void OnDataChanged(Driver obj) {
-
-                    }
-
-                    @Override
-                    public void OnDataAdded(Driver obj) {
-
-                        //Toast.makeText(getApplicationContext(),"Welcome to our company",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void OnFailure(Exception exception) {
-
-                    }
-                });*/
-
-               // FireBase_DSManager.CurrentDriver=getDriver();
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());
@@ -183,6 +162,13 @@ public class RegisterActivity extends AppCompatActivity
 
     private void Register()
     {
+        final Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
+
+
+
+
+
+        FireBase_DSManager.CurrentDriver=getDriver();
         auth.createUserWithEmailAndPassword(Mail.getText().toString(),Password1.getText().toString()).
             addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -191,6 +177,10 @@ public class RegisterActivity extends AppCompatActivity
                     {
 
                         FirebaseUser user=auth.getCurrentUser();
+                        String key=user.getUid();
+                        d.setUID(key);
+                        f.addDriver(d);
+                        FireBase_DSManager.CurrentDriver=d;
                     }
                     else
                         Toast.makeText(getBaseContext(),
