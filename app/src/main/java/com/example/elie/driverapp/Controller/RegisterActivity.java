@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity
                     }
                 });*/
 
-
+               // FireBase_DSManager.CurrentDriver=getDriver();
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());

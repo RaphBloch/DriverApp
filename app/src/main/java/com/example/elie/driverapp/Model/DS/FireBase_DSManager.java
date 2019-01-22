@@ -38,6 +38,7 @@ public class FireBase_DSManager implements Backend
 
     // creation of my databaseReference
     public static DatabaseReference ClientsRef;
+    public static Driver CurrentDriver;
     public static DatabaseReference DriversRef;
     public static List<ClientRequest> ClientsList;
     public static List<Driver> DriversList;
@@ -138,17 +139,17 @@ public class FireBase_DSManager implements Backend
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
 
             {
-                ClientRequest c = dataSnapshot.getValue(ClientRequest.class);
+
+                ClientRequest c=dataSnapshot.getValue(ClientRequest.class);
                 String ID = dataSnapshot.getKey();
                 c.setId(Integer.parseInt(ID));
-                int i=0;
-                for (ClientRequest  client : ClientsList )
+                for (int i=0; i < ClientsList.size() ; i++)
                 {
-
-                    if(client.getId() == Integer.parseInt(ID) )
+                    if ( ClientsList.get(i).getId() == c.getId() )
+                    {
                         ClientsList.set(i,c);
-
-                                i++;
+                        break;
+                    }
                 }
                 notifyDataChange.OnDataChanged(c);
 
@@ -196,17 +197,16 @@ public class FireBase_DSManager implements Backend
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
 
             {
-                Driver  d = dataSnapshot.getValue(Driver.class);
+                Driver d=dataSnapshot.getValue(Driver.class);
                 String ID = dataSnapshot.getKey();
                 d.setID(Integer.parseInt(ID));
-                int i=0;
-                for (Driver D : DriversList )
+                for (int i=0; i < DriversList.size() ; i++)
                 {
-
-                    if(D.getID() == Integer.parseInt(ID) )
+                    if ( DriversList.get(i).getID() == d.getID() )
+                    {
                         DriversList.set(i,d);
-
-                    i++;
+                        break;
+                    }
                 }
                 notifyDataChange.OnDataChanged(d);
 
@@ -267,7 +267,7 @@ public class FireBase_DSManager implements Backend
 
         for (ClientRequest  c : ClientsList )
         {
-            if(c.getStatus()== ClientRequestStatus._Finished)
+            if(c.getStatus()== ClientRequestStatus._Finished )
                 mylist.add(c);
         }
 

@@ -45,13 +45,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
    // ArrayList<ClientRequest> copylist;
     private Context context;
 
+
+
+
     DriverActivity d;
+
 
     //ajouter un constructeur prenant en entrée une liste
     public OrderAdapter(ArrayList<ClientRequest> list,Context context) {
         this.list = list;
         this.context=context;
-        d=(DriverActivity) context;
+       d=(DriverActivity) context;
     }
 
     public interface OnItemClickListener
@@ -197,6 +201,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 Button dialogStartBtn = mydialog.findViewById(R.id.dialog_button_Start);
                 Button dialogFinishBtn = mydialog.findViewById(R.id.dialog_button_Finish);
 
+
                 //Toast.makeText(context ,"item n :"+ list.get(myViewHolder.getAdapterPosition()).getName()+" voila",
                 //Toast.LENGTH_SHORT).show();
                 dialogName.setText(list.get(position).getName());
@@ -313,28 +318,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 });
 
 
-                /*
-                *TextView mActionOk = mydialog.findViewById(R.id.action_ok);
-                TextView mActionCancel = mydialog.findViewById(R.id.action_cancel);
 
-                * mActionOk = view.findViewById(R.id.action_ok);
-        mActionCancel = view.findViewById(R.id.action_cancel);
-
-        mActionCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mydialog.dismiss();
-                    }
-                });
-
-                mActionOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    mydialog.dismiss();
-                    }
-                });
-
-                * */
                 //Toast.makeText(context,list.get(myViewHolder.getAdapterPosition()).toString(),Toast.LENGTH_LONG).show();
                 mydialog.show();
             }

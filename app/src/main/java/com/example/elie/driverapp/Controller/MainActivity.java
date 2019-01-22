@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import  android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.Button;
@@ -30,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -100,7 +102,10 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void OnDataAdded(Driver obj) {
-                        Toast.makeText(getBaseContext(),"Essai",Toast.LENGTH_LONG).show();
+
+
+                        Log.d("re","essai");
+                        //Toast.makeText(getBaseContext(),"essai",Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -115,6 +120,20 @@ public class MainActivity extends AppCompatActivity
                         && Password.getText().toString().equals(sharedPreferences.getString(Pass,"")))
                     GoToDriver();
                 else*/
+                ArrayList<Driver> drivers=f.drivers();
+
+                for (int i=0; i < drivers.size() ; i++)
+                {
+                   // Toast.makeText(this,drivers.get(i).getMail().toString(),Toast.LENGTH_SHORT).show();
+                    if ( drivers.get(i).getMail().toString().trim().equals(MyMail.getText().toString().trim()) )
+                    {
+
+                        FireBase_DSManager.CurrentDriver=new Driver(drivers.get(i));
+
+                       // Toast.makeText(this,FireBase_DSManager.CurrentDriver.getName()  ,Toast.LENGTH_SHORT).show();
+
+                    }
+                }
                     SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
             }
         });

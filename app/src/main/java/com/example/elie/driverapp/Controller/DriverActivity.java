@@ -80,10 +80,8 @@ public class DriverActivity extends AppCompatActivity
 
     NotificationManager notificationManager;
 
-    Button newOrder , oldOrder;
 
-
-    Driver d =new Driver();
+    public Driver d =new Driver();
 
     public Driver getD()
 
@@ -110,26 +108,30 @@ public class DriverActivity extends AppCompatActivity
                 new IntentFilter("New order"));
 
 
+
         setContentView(R.layout.activity_driver2);
         Intent intent=getIntent();
 
 
         String mail=intent.getStringExtra("mail");
-        Toast.makeText(this,mail,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,mail,Toast.LENGTH_LONG).show();
         startService(new Intent(getBaseContext(),DriverService.class));
 
+
         FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
-        ArrayList<Driver> drivers=f.drivers();
+        /*ArrayList<Driver> drivers=f.drivers();
 
-        for (Driver item : drivers)
-        {      if(item.getMail().equals(mail))
-                    d=new Driver(d);
-        }
+        for (int i=0; i < drivers.size() ; i++)
+        {
+            //Toast.makeText(this,drivers.get(i).getMail()+"="+mail,Toast.LENGTH_SHORT).show();
+            if ( drivers.get(i).getMail().toString().trim().equals(mail.trim()) )
+            {
 
+                d=new Driver(drivers.get(i));
+                Toast.makeText(this,d.getName()  ,Toast.LENGTH_SHORT).show();
 
-
-
-
+            }
+        }*/
 
 
 
