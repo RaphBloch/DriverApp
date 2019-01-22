@@ -9,7 +9,7 @@ public class Driver implements Serializable
 
     private String Name;
     private int ID;
-    public String UID;
+    private String UID;
     private String Phone;
     private String Mail;
     //endregion

@@ -38,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity
     EditText Password2;
     Button RegisterBtn;
     Button CancelBtn;
+    Driver d=new Driver();
+    String key;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     Backend_Factory backend_factory=new Backend_Factory();
     FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
@@ -57,9 +59,17 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                login();
-                Register();
 
+                login();
+                d.setID(Integer.parseInt(ID.getText().toString().trim()));
+
+                 d.setName(Name.getText().toString().trim());
+                 d.setMail(Mail.getText().toString().trim());
+                 d.setPhone(Phone.getText().toString().trim());
+                Register();
+                d.setUID(key);
+                f.addDriver(d);
+                FireBase_DSManager.CurrentDriver=d;
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());
@@ -162,13 +172,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private void Register()
     {
-        final Driver d= new Driver( Integer.parseInt(ID.getText().toString().trim()), Name.getText().toString().trim() ,Mail.getText().toString().trim() ,Phone.getText().toString().trim() );
 
-
-
-
-
-        FireBase_DSManager.CurrentDriver=getDriver();
         auth.createUserWithEmailAndPassword(Mail.getText().toString(),Password1.getText().toString()).
             addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -177,14 +181,13 @@ public class RegisterActivity extends AppCompatActivity
                     {
 
                         FirebaseUser user=auth.getCurrentUser();
-                        String key=user.getUid();
-                        d.setUID(key);
-                        f.addDriver(d);
-                        FireBase_DSManager.CurrentDriver=d;
+                        key=user.getUid();
+
                     }
                     else
                         Toast.makeText(getBaseContext(),
                                 "Authentification failed",Toast.LENGTH_SHORT).show();
+                                finish();
 
                 }
             });
