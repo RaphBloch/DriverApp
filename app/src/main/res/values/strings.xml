@@ -17,8 +17,10 @@
     <string name="littleTitle">Here are all the new Order :</string>
     <string name="Filtre">place where you want work</string>
     <string name="SMS">SMS</string>
+    <string name="CP">Add Contact</string>
     <string name="Call">Call</string>
     <string name="EMail">eMail</string>
+    <string name="Status">Status</string>
     <string name="Start">Start</string>
     <string name="Finish">Finish</string>
     <string name="Confirmation">Please enter your password again </string>

@@ -262,14 +262,16 @@ public class FireBase_DSManager implements Backend
 
 
 
-    public ArrayList<ClientRequest> FinishedClients()
+    public ArrayList<ClientRequest> Clients()
     {
 
         ArrayList<ClientRequest> mylist=new ArrayList<>();
 
         for (ClientRequest  c : ClientsList )
         {
-            if(c.getStatus()== ClientRequestStatus._Finished )
+            if((c.getStatus()== ClientRequestStatus._Finished ||
+                    c.getStatus()==ClientRequestStatus._Current) &&
+                    c.getDriverId()==CurrentDriver.getID() )
                 mylist.add(c);
         }
 

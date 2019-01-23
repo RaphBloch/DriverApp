@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     EditText MyMail;
     EditText Password;
     SharedPreferences sharedPreferences;
-     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Store(v);
-                f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
+                /*f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
                     @Override
                     public void OnDataChanged(Driver obj) {
                         Log.d("re","essai");
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 });
-
+*/
 
                     SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
             }

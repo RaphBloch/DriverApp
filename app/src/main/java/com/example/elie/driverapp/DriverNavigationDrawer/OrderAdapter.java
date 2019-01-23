@@ -119,59 +119,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     {
         View view = LayoutInflater.from(context).inflate(R.layout.order_layout,viewGroup,false);
         final MyViewHolder myViewHolder=new MyViewHolder(view);
-/*
-        mydialog= new Dialog(context);
-        mydialog.setContentView(R.layout.dialog_fragment_order);
-        mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
 
-        myViewHolder.item_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                TextView dialogName = mydialog.findViewById(R.id.dialog_Name);
-                TextView dialogDestination = mydialog.findViewById(R.id.dialog_destination_adresse);
-                TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
-                Button dialogCallBtn = mydialog.findViewById(R.id.dialog_button_call);
-                Button dialogMessageBtn = mydialog.findViewById(R.id.dialog_button_Message);
-                Button dialogMailBtn = mydialog.findViewById(R.id.dialog_button_Mail);
-                Button dialogStartBtn = mydialog.findViewById(R.id.dialog_button_Start);
-                Button dialogFinishBtn = mydialog.findViewById(R.id.dialog_button_Finish);
-
-                //Toast.makeText(context ,"item n :"+ list.get(myViewHolder.getAdapterPosition()).getName()+" voila",
-                        //Toast.LENGTH_SHORT).show();
-                //dialogName.setText(list.get(myViewHolder.getAdapterPosition()).getName());
-
-
-                /*
-                *TextView mActionOk = mydialog.findViewById(R.id.action_ok);
-                TextView mActionCancel = mydialog.findViewById(R.id.action_cancel);
-
-                * mActionOk = view.findViewById(R.id.action_ok);
-        mActionCancel = view.findViewById(R.id.action_cancel);
-
-        mActionCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mydialog.dismiss();
-                    }
-                });
-
-                mActionOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    mydialog.dismiss();
-                    }
-                });
-
-
-                //Toast.makeText(context,list.get(myViewHolder.getAdapterPosition()).toString(),Toast.LENGTH_LONG).show();
-              //  mydialog.show();
-            }
-        });
-
-*/
         return new MyViewHolder(view);
     }
 
@@ -217,7 +167,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(d.getD().getID());
+                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(FireBase_DSManager.CurrentDriver.getID());
                                 FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("status").setValue(ClientRequestStatus._Current);
                             }
                         });
@@ -230,21 +180,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                         });
                         builder.create().show();
 
-                        /*Snackbar snackbar = Snackbar.make(mydialog.findViewById(R.id.Dialog_layout),"the Order has beguin ",Snackbar.LENGTH_LONG)
-                                .setAction("Cancel", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("status").setValue(ClientRequestStatus._Waiting);
 
-                                    }
-                                });
-                        snackbar.show();
-                        */
-                       // Toast.makeText(context,"The order has beguin !",Toast.LENGTH_SHORT)
+
                     }
                 });
 
-                dialogFinishBtn.setOnClickListener(new View.OnClickListener() {
+                dialogFinishBtn.setEnabled(false);
+                /*dialogFinishBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v)
                     {
@@ -253,7 +195,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                         Toast.makeText(context,"The order has Finished !",Toast.LENGTH_SHORT).show();
                         mydialog.dismiss();
                     }
-                });
+                });*/
 
                 dialogMessageBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

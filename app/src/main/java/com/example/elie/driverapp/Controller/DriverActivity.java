@@ -114,7 +114,9 @@ public class DriverActivity extends AppCompatActivity
 
 
         String mail=intent.getStringExtra("mail");
-        //Toast.makeText(this,mail,Toast.LENGTH_LONG).show();
+
+
+        Toast.makeText(this,mail + " == " + FireBase_DSManager.CurrentDriver.getMail(),Toast.LENGTH_LONG).show();
         startService(new Intent(getBaseContext(),DriverService.class));
 
 
