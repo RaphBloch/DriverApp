@@ -274,15 +274,14 @@ public class FireBase_DSManager implements Backend
 
 
 
-    public ArrayList<ClientRequest> Clients()
+    public ArrayList<ClientRequest> ClientsF()
     {
 
         ArrayList<ClientRequest> mylist=new ArrayList<>();
 
         for (ClientRequest  c : ClientsList )
         {
-            if((c.getStatus()== ClientRequestStatus._Finished ||
-                    c.getStatus()==ClientRequestStatus._Current))
+            if((c.getStatus()== ClientRequestStatus._Finished))
                 mylist.add(c);
         }
 
@@ -291,6 +290,22 @@ public class FireBase_DSManager implements Backend
 
     }
 
+    public ArrayList<ClientRequest> ClientsC()
+    {
+
+        ArrayList<ClientRequest> mylist=new ArrayList<>();
+
+        for (ClientRequest  c : ClientsList )
+        {
+            if((c.getStatus()==ClientRequestStatus._Current))
+                mylist.add(c);
+        }
+
+
+
+        return mylist;
+
+    }
 
 
 
