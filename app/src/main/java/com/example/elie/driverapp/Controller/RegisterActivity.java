@@ -66,9 +66,8 @@ public class RegisterActivity extends AppCompatActivity
                  d.setMail(Mail.getText().toString().trim());
                  d.setPhone(Phone.getText().toString().trim());
                 Register();
-                d.setUID(auth.getCurrentUser().getUid());
                 f.addDriver(d);
-                FireBase_DSManager.CurrentDriver=d;
+                FireBase_DSManager.CurrentDriver=new Driver(d);
                 ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());

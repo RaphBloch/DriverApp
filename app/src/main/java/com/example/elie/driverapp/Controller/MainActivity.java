@@ -70,6 +70,26 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FindViews();
+        f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
+            @Override
+            public void OnDataChanged(Driver obj) {
+                Log.d("re","essai");
+            }
+
+            @Override
+            public void OnDataAdded(Driver obj) {
+
+
+                Log.d("re","essai");
+                //Toast.makeText(getBaseContext(),"essai",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void OnFailure(Exception exception) {
+
+            }
+        });
 
 
 
@@ -97,29 +117,21 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Store(v);
-                /*f.notifyToDriverList(new Backend.NotifyDataChange<Driver>() {
-                    @Override
-                    public void OnDataChanged(Driver obj) {
-                        Log.d("re","essai");
+
+                ArrayList<Driver> drivers=f.drivers();
+
+                for (int i=0; i < drivers.size() ; i++)
+                {
+                    //Toast.makeText(this,drivers.get(i).getMail()+"="+mail,Toast.LENGTH_SHORT).show();
+                    if ( drivers.get(i).getMail().toString().trim().equals(MyMail.getText().toString().trim()) )
+                    {
+
+                        FireBase_DSManager.CurrentDriver=new Driver(drivers.get(i));
                     }
-
-                    @Override
-                    public void OnDataAdded(Driver obj) {
+                }
 
 
-                        Log.d("re","essai");
-                        //Toast.makeText(getBaseContext(),"essai",Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void OnFailure(Exception exception) {
-
-                    }
-                });
-*/
-
-                    SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
+                SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
             }
         });
 
@@ -183,30 +195,17 @@ public class MainActivity extends AppCompatActivity
 
     private void SignIn(String mail,String password)
     {
-        auth.signInWithEmailAndPassword(mail,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        auth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                String key=auth.getCurrentUser().getUid();
-                FireBase_DSManager.DriversRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Driver driver = dataSnapshot.getValue(Driver.class);
-                        FireBase_DSManager.CurrentDriver = driver;
-                        GoToDriver();
-            }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-
-                        Toast.makeText(getBaseContext(),"Authentification failed",Toast.LENGTH_SHORT).show();
+                if(task.isSuccessful())
+                {
+                    FirebaseUser user=auth.getCurrentUser();
+                    GoToDriver();
+                }
+                else
+                    Toast.makeText(getBaseContext(),"Authentification failed",Toast.LENGTH_SHORT).show();
 
                     }
                 });

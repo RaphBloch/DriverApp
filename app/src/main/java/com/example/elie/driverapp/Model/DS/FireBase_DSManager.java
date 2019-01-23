@@ -101,7 +101,7 @@ public class FireBase_DSManager implements Backend
 
     private  void addDriverToFireBase(final Driver driver,final Action<String> action)
     {
-        String key=driver.getUID();
+        String key=String.valueOf(driver.getID());
         DriversRef.child(key).setValue(driver).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

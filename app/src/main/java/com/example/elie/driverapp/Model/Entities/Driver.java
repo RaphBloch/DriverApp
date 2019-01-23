@@ -9,7 +9,6 @@ public class Driver implements Serializable
 
     private String Name;
     private int ID;
-    private String UID;
     private String Phone;
     private String Mail;
     //endregion
@@ -17,13 +16,7 @@ public class Driver implements Serializable
 
 
 
-    public String getUID() {
-        return UID;
-    }
 
-    public void setUID(String UID) {
-        this.UID = UID;
-    }
 
     //region ***** GET/SET *****
     public String getMail() {
