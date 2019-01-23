@@ -182,8 +182,6 @@ public class FireBase_DSManager implements Backend
     public  void notifyToDriverList(final NotifyDataChange<Driver> notifyDataChange)
 
     {
-
-
         driverRefChildEventListener=  new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
