@@ -44,8 +44,11 @@ public class order_finished_fragment extends Fragment
     Backend_Factory backend_factory=new Backend_Factory();
     FireBase_DSManager f=(FireBase_DSManager)backend_factory.getfactory();
     ArrayList<ClientRequest> clientslistf = new ArrayList<ClientRequest>(f.Clients());
+    ArrayList<ClientRequest> myclientslistf = new ArrayList<ClientRequest>();
+
 
     private FinishOrderAdapter2 myAdapter;
+    DriverActivity d;
 
     View myview;
 
@@ -58,7 +61,15 @@ public class order_finished_fragment extends Fragment
         myview=inflater.inflate(R.layout.order_finished,container,false);
         RecyclerView listView = (RecyclerView) myview.findViewById(R.id.finish_order);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter = new FinishOrderAdapter2 (clientslistf,getContext());
+        d=(DriverActivity)getContext();
+        for (ClientRequest item : clientslistf)
+        {
+            if ( item.getDriverId() == (d.getD().getID()))
+            {
+                myclientslistf.add(item);
+            }
+        }
+        myAdapter = new FinishOrderAdapter2 (myclientslistf,getContext());
         myAdapter.notifyDataSetChanged();
         listView.setAdapter(myAdapter);
         AccessContact();

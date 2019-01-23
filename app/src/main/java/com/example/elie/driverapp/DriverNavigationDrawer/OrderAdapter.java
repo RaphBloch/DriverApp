@@ -167,7 +167,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(FireBase_DSManager.CurrentDriver.getID());
+                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(d.getD().getID());
                                 FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("status").setValue(ClientRequestStatus._Current);
                             }
                         });

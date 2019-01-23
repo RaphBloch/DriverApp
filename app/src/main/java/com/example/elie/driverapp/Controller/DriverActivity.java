@@ -116,24 +116,26 @@ public class DriverActivity extends AppCompatActivity
         String mail=intent.getStringExtra("mail");
 
 
-        Toast.makeText(this,mail + " == " + FireBase_DSManager.CurrentDriver.getMail(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,mail + " == " + FireBase_DSManager.CurrentDriver.getMail(),Toast.LENGTH_LONG).show();
         startService(new Intent(getBaseContext(),DriverService.class));
 
 
         FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
-        /*ArrayList<Driver> drivers=f.drivers();
+        ArrayList<Driver> drivers=f.drivers();
 
         for (int i=0; i < drivers.size() ; i++)
         {
             //Toast.makeText(this,drivers.get(i).getMail()+"="+mail,Toast.LENGTH_SHORT).show();
-            if ( drivers.get(i).getMail().toString().trim().equals(mail.trim()) )
+            if ( drivers.get(i).getMail().toString().trim().compareTo(mail.trim()) ==0 )
             {
 
                 d=new Driver(drivers.get(i));
-                Toast.makeText(this,d.getName()  ,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,d.getName()  ,Toast.LENGTH_SHORT).show();
 
             }
-        }*/
+        }
+
+
 
 
 
