@@ -35,6 +35,17 @@ public class FireBase_DSManager implements Backend
      *
      */
 
+    private static FireBase_DSManager fireBase_dsManager = null;
+
+    public static FireBase_DSManager getFireBase_dsManager()
+    {
+        if (fireBase_dsManager == null)
+        {
+            fireBase_dsManager = new FireBase_DSManager();
+        }
+        return fireBase_dsManager;
+    }
+
 
     // creation of my databaseReference
     public static DatabaseReference ClientsRef;
@@ -74,32 +85,10 @@ public class FireBase_DSManager implements Backend
         CurrentDriver=new Driver();
     }
 
-    /***
-     *
-     * @param driver
-     */
-    public   void addDriver(final  Driver  driver)
-    {
-        addDriverToFireBase(driver, new Action<String>() {
-            @Override
-            public void OnSuccess(String obj) {
-
-            }
-
-            @Override
-            public void OnProgress(String status, double percent) {
-
-            }
-
-            @Override
-            public void OnFailure(Exception exception) {
-
-            }
-        });
-    }
 
 
-    private  void addDriverToFireBase(final Driver driver,final Action<String> action)
+    @Override
+    public  void addDriverToFireBase(final Driver driver,final Action<String> action)
     {
         String key=String.valueOf(driver.getID());
         DriversRef.child(key).setValue(driver).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -118,8 +107,8 @@ public class FireBase_DSManager implements Backend
     }
 
 
-
-    public  void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
+@Override
+    public   void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange)
 
     {
 
@@ -190,7 +179,7 @@ public class FireBase_DSManager implements Backend
     }
 
 
-
+    @Override
     public  void notifyToDriverList(final NotifyDataChange<Driver> notifyDataChange)
 
     {

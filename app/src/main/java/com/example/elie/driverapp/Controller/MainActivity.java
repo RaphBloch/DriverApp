@@ -1,5 +1,6 @@
 package com.example.elie.driverapp.Controller;
 
+
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     Button Login;
     EditText MyMail;
     EditText Password;
+    ProgressBar progressBar;
     SharedPreferences sharedPreferences;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     Driver d=new Driver();
@@ -82,7 +85,6 @@ public class MainActivity extends AppCompatActivity
 
 
                 Log.d("re","essai");
-                //Toast.makeText(getBaseContext(),"essai",Toast.LENGTH_SHORT).show();
 
             }
 
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
 
 
@@ -111,32 +114,28 @@ public class MainActivity extends AppCompatActivity
             MyMail.setText(sharedPreferences.getString( Mail,""));
         if(sharedPreferences.contains(Pass))
             Password.setText(sharedPreferences.getString(Pass,""));
+        if ((getIntent().getStringExtra("mail")!=null ))
+        {
+            MyMail.setText(getIntent().getStringExtra("mail"));
+            Password.setText(getIntent().getStringExtra("password"));
+
+        }
+
+
 
         Login.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                progressBar.setVisibility(View.VISIBLE)
+                ;
                 Store(v);
 
                 ArrayList<Driver> drivers=f.drivers();
 
-                /*for (int i=0; i < drivers.size() ; i++)
-                {
-                    Toast.makeText(getBaseContext() , MyMail.getText().toString().trim() +"="+ drivers.get(i).getMail().toString().trim(),Toast.LENGTH_SHORT).show();
-
-                    if ( drivers.get(i).getMail().toString().trim().compareTo ( MyMail.getText().toString().trim()) ==0 )
-                    {
-                       Toast.makeText(getBaseContext(),"if check",Toast.LENGTH_SHORT).show();
-                        d=new Driver(drivers.get(i));
-                        break;
-                    }
-                }
-
-                FireBase_DSManager.CurrentDriver=d;
-
-                */
                 SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
+                Login.setEnabled(false);
             }
         });
 
@@ -155,14 +154,7 @@ public class MainActivity extends AppCompatActivity
         //Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
 
     }
-    /*public void Fetch(View view)
-    {
-       sharedPreferences = getSharedPreferences(mypreference,Context.MODE_PRIVATE);
-       if(sharedPreferences.contains(Name))
-           Pseudo.setText(sharedPreferences.getString(Name,""));
-        if(sharedPreferences.contains(Pass))
-            Password.setText(sharedPreferences.getString(Pass,""));
-    }*/
+
 
     private void FindViews()
     {
@@ -170,6 +162,8 @@ public class MainActivity extends AppCompatActivity
         Login=(Button)findViewById(R.id.Login);
         Password=(EditText)findViewById(R.id.Password);
         MyMail=(EditText)findViewById(R.id.Pseudo);
+        progressBar=(ProgressBar)findViewById(R.id.idProgresseBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
     }
 

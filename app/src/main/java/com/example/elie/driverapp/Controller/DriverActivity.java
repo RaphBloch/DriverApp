@@ -34,7 +34,8 @@ import android.support.design.widget.NavigationView;
 import com.example.elie.driverapp.Model.Backend.Backend_Factory;
 import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import com.example.elie.driverapp.Model.Entities.Driver;
-import  com.example.elie.driverapp.R;
+import com.example.elie.driverapp.R;
+
 import android.support.v4.view.GravityCompat;
 
 import android.support.v4.widget.DrawerLayout;
@@ -67,8 +68,12 @@ public class DriverActivity extends AppCompatActivity
     public double latitude;
     LocationManager locationManager;
     LocationListener locationListener;
-    Backend_Factory backend_factory=new Backend_Factory();
+    Backend_Factory backend_factory = new Backend_Factory();
     int MY_NOTFICATION_ID;
+    //public Fragment_main fragment_main;
+
+    private Fragment_main fragmentMain;
+
 
     final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
@@ -81,7 +86,7 @@ public class DriverActivity extends AppCompatActivity
     NotificationManager notificationManager;
 
 
-    public Driver d =new Driver();
+    public Driver d = new Driver();
 
     public Driver getD()
 
@@ -89,9 +94,9 @@ public class DriverActivity extends AppCompatActivity
         return d;
     }
 
-    public BroadcastReceiver myReceiver = new BroadcastReceiver(){
+    public BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context,Intent intent){
+        public void onReceive(Context context, Intent intent) {
             System.out.println("inside onReceive");
 
             notifs();
@@ -102,50 +107,41 @@ public class DriverActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         registerReceiver(
                 new MyBroadcastReceiver(),
                 new IntentFilter("New order"));
 
-
-
         setContentView(R.layout.activity_driver2);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
 
 
-        String mail=intent.getStringExtra("mail");
+        String mail = intent.getStringExtra("mail");
 
 
         //Toast.makeText(this,mail + " == " + FireBase_DSManager.CurrentDriver.getMail(),Toast.LENGTH_LONG).show();
-        startService(new Intent(getBaseContext(),DriverService.class));
+        startService(new Intent(getBaseContext(), DriverService.class));
 
 
-        FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
-        ArrayList<Driver> drivers=f.drivers();
+        FireBase_DSManager f = (FireBase_DSManager) backend_factory.getfactory();
+        ArrayList<Driver> drivers = f.drivers();
 
-        for (int i=0; i < drivers.size() ; i++)
-        {
+        for (int i = 0; i < drivers.size(); i++) {
             //Toast.makeText(this,drivers.get(i).getMail()+"="+mail,Toast.LENGTH_SHORT).show();
-            if ( drivers.get(i).getMail().toString().trim().compareTo(mail.trim()) ==0 )
-            {
+            if (drivers.get(i).getMail().toString().trim().compareTo(mail.trim()) == 0) {
 
-                d=new Driver(drivers.get(i));
+                d = new Driver(drivers.get(i));
                 //Toast.makeText(this,d.getName()  ,Toast.LENGTH_SHORT).show();
 
             }
         }
 
 
-
-
-
-        locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationListener=new LocationListener() {
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
             @Override
-            public void onLocationChanged(Location location)
-            {
-                latitude=location.getLatitude();
-                longitude=location.getLongitude();
+            public void onLocationChanged(Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
             }
 
             @Override
@@ -162,21 +158,14 @@ public class DriverActivity extends AppCompatActivity
             public void onProviderDisabled(String provider) {
 
             }
-        } ;
+        };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -187,7 +176,10 @@ public class DriverActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         getLocation();
+
+
     }
 
     @Override
@@ -231,18 +223,15 @@ public class DriverActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_order_list)
-        {
-            fragmentManager.beginTransaction().replace(R.id.content_frame,new order_list_fragment()).commit();
+        if (id == R.id.nav_order_list) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new order_list_fragment()).commit();
             // Handle the camera action
-        } else if (id == R.id.nav_order_finished)
-        {
-            fragmentManager.beginTransaction().replace(R.id.content_frame,new order_finished_fragment()).commit();
-        } else if (id == R.id.nav_exit)
-        {
+        } else if (id == R.id.nav_order_finished) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new order_finished_fragment()).commit();
+        } else if (id == R.id.nav_exit) {
 
-            ComponentName componentName = new ComponentName(DriverActivity.this,MainActivity.class);
-            Intent myintent=new Intent();
+            ComponentName componentName = new ComponentName(DriverActivity.this, MainActivity.class);
+            Intent myintent = new Intent();
             myintent.setComponent(componentName);
             startActivity(myintent);
 
@@ -253,35 +242,30 @@ public class DriverActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
-  }
+    }
 
 
-  public double getlongitude()
-  {
-      return longitude;
-  }
 
-    public double getlatitude()
-    {
+
+    public double getlongitude() {
+        return longitude;
+    }
+
+    public double getlatitude() {
         return latitude;
     }
 
     //region ***** GoogleMaps *****
-    private void getLocation()
-    {
+    private void getLocation() {
 
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+                checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 5);
-        }
+        } else {
 
-        else
-        {
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
         }
     }
@@ -289,14 +273,12 @@ public class DriverActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 5) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0, locationListener);
-            }
-            else {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            } else {
 
 
                 Toast.makeText(this, "Until you grant the permission, we cannot display the location",
@@ -309,8 +291,7 @@ public class DriverActivity extends AppCompatActivity
     }
 
 
-    private void notifs()
-    {
+    private void notifs() {
 
         final PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, DriverActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -318,9 +299,7 @@ public class DriverActivity extends AppCompatActivity
         notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription("Channel description");
 
@@ -338,8 +317,6 @@ public class DriverActivity extends AppCompatActivity
         final NotificationCompat.Builder b = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
 
-
-
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
@@ -353,8 +330,6 @@ public class DriverActivity extends AppCompatActivity
 
         notificationManager.notify(1, b.build());
     }
-
-
 
 
 }

@@ -11,7 +11,7 @@ import android.widget.Button;
 
 
 public class Fragment_order_information extends Fragment {
-
+/*
     Button opnDialog;
 
 
@@ -20,9 +20,9 @@ public class Fragment_order_information extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View  view = inflater.inflate(R.layout.fragment_order_action_layout, container ,false);
+        View  view = inflater.inflate(R.layout.main_fragment, container ,false);
 
-        opnDialog = view.findViewById(R.id.fragment_button);
+       // opnDialog = view.findViewById(R.id.fragment_button);
 
         opnDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,5 +34,5 @@ public class Fragment_order_information extends Fragment {
             }
         });
         return view;
-    }
+    }*/
 }
