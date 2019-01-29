@@ -123,10 +123,20 @@ public class FireBase_DSManager implements Backend
 
     {
 
+        if (notifyDataChange != null)
+        {
+
+            if ( clientRefChildEventListener != null)
+            {
+                notifyDataChange.OnFailure(new Exception("no change"));
+                return;
+            }
+
+        ClientsList.clear();
 
 
 
-       ClientsRef.orderByChild("dataTime").startAt(Calendar.getInstance().getTime().getTime()).addChildEventListener(  new ChildEventListener() {
+            clientRefChildEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
@@ -172,8 +182,10 @@ public class FireBase_DSManager implements Backend
             {
                 notifyDataChange.OnFailure(databaseError.toException());
             }
-        });
- //ClientsRef.addChildEventListener(clientRefChildEventListener);
+        };
+        ClientsRef.addChildEventListener(clientRefChildEventListener);
+
+        }
 
     }
 
@@ -260,16 +272,14 @@ public class FireBase_DSManager implements Backend
 
 
 
-    public ArrayList<ClientRequest> Clients()
+    public ArrayList<ClientRequest> ClientsF()
     {
 
         ArrayList<ClientRequest> mylist=new ArrayList<>();
 
         for (ClientRequest  c : ClientsList )
         {
-            if((c.getStatus()== ClientRequestStatus._Finished ||
-                    c.getStatus()==ClientRequestStatus._Current) &&
-                    c.getDriverId()==CurrentDriver.getID() )
+            if((c.getStatus()== ClientRequestStatus._Finished))
                 mylist.add(c);
         }
 
@@ -278,6 +288,22 @@ public class FireBase_DSManager implements Backend
 
     }
 
+    public ArrayList<ClientRequest> ClientsC()
+    {
+
+        ArrayList<ClientRequest> mylist=new ArrayList<>();
+
+        for (ClientRequest  c : ClientsList )
+        {
+            if((c.getStatus()==ClientRequestStatus._Current))
+                mylist.add(c);
+        }
+
+
+
+        return mylist;
+
+    }
 
 
 

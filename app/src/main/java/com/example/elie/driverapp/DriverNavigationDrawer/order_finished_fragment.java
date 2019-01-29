@@ -43,9 +43,14 @@ public class order_finished_fragment extends Fragment
     final private int REQUEST_MULTIPLE_PERMISSIONS = 124;
     Backend_Factory backend_factory=new Backend_Factory();
     FireBase_DSManager f=(FireBase_DSManager)backend_factory.getfactory();
-    ArrayList<ClientRequest> clientslistf = new ArrayList<ClientRequest>(f.Clients());
+    ArrayList<ClientRequest> clientslistf = new ArrayList<ClientRequest>(f.ClientsF());
+    ArrayList<ClientRequest> clientslistc = new ArrayList<ClientRequest>(f.ClientsC());
+    ArrayList<ClientRequest> myclientslistf = new ArrayList<ClientRequest>();
+    ArrayList<ClientRequest> myclientslistc = new ArrayList<ClientRequest>();
 
     private FinishOrderAdapter2 myAdapter;
+    private FinishOrderAdapter2 myAdapter2;
+    DriverActivity d;
 
     View myview;
 
@@ -58,10 +63,33 @@ public class order_finished_fragment extends Fragment
         myview=inflater.inflate(R.layout.order_finished,container,false);
         RecyclerView listView = (RecyclerView) myview.findViewById(R.id.finish_order);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter = new FinishOrderAdapter2 (clientslistf,getContext());
+        d=(DriverActivity)getContext();
+        for (ClientRequest item : clientslistf)
+        {
+            if ( item.getDriverId() == (d.getD().getID()))
+            {
+                myclientslistf.add(item);
+            }
+        }
+
+        myAdapter = new FinishOrderAdapter2 (myclientslistf,getContext());
         myAdapter.notifyDataSetChanged();
         listView.setAdapter(myAdapter);
         AccessContact();
+
+        RecyclerView listView2 = (RecyclerView) myview.findViewById(R.id.Current_order);
+        listView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        for (ClientRequest item : clientslistc)
+        {
+            if ( item.getDriverId() == (d.getD().getID()))
+            {
+                myclientslistc.add(item);
+            }
+        }
+        myAdapter2 =new FinishOrderAdapter2(myclientslistc,getContext());
+        myAdapter2.notifyDataSetChanged();
+        listView2.setAdapter(myAdapter2);
+
 
 
 

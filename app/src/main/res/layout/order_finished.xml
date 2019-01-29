@@ -16,19 +16,49 @@
         android:gravity="center"
         android:inputType="textPersonName"
         android:padding="5dp"
-        android:text="Welcome to the Finish Order"
+        android:text="Welcome to the Order Gallery"
         android:textSize="20dp"
         android:textStyle="bold" />
 
 
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All Finish Order :"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="3dp"
+        android:layout_margin="3dp"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="230dp"
+        android:scrollbars="vertical"
+        android:padding="3dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/finish_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </ScrollView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All Current Order :"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="3dp"
+        android:layout_margin="3dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:scrollbars="vertical"
+        android:padding="3dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Current_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

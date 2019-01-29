@@ -80,7 +80,6 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
             Name= (TextView) itemView.findViewById(R.id.finish_name);
             Status= (TextView) itemView.findViewById(R.id.Status);
             CP=(Button) itemView.findViewById(R.id.CP);
-
             item_order=(LinearLayout)itemView.findViewById(R.id.linear_finish_order);
 
         }
@@ -137,6 +136,8 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
         myViewHolder.CP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(context,"The contact is Added",Toast.LENGTH_LONG).show();
 
                 SaveContact(list.get(position));
 
@@ -312,8 +313,8 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
                 .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,rawContactInsertIndex)
                 .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
                 .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, szFullname) // Name of the person
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, "Get_Taxi") // Name of the person
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, clientRequest.getName()) // Name of the person
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, clientRequest.getName()) // Name of the person
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, "Get_Taxi") // Name of the person
                 .build());
         //INSERT PHONE
         ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)

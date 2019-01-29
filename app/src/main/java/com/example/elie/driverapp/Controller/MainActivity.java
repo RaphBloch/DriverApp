@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     EditText Password;
     SharedPreferences sharedPreferences;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    Driver d=new Driver();
 
     FireBase_DSManager f=(FireBase_DSManager) backend_factory.getfactory();
 
@@ -120,17 +121,21 @@ public class MainActivity extends AppCompatActivity
 
                 ArrayList<Driver> drivers=f.drivers();
 
-                for (int i=0; i < drivers.size() ; i++)
+                /*for (int i=0; i < drivers.size() ; i++)
                 {
-                    //Toast.makeText(this,drivers.get(i).getMail()+"="+mail,Toast.LENGTH_SHORT).show();
-                    if ( drivers.get(i).getMail().toString().trim().equals(MyMail.getText().toString().trim()) )
-                    {
+                    Toast.makeText(getBaseContext() , MyMail.getText().toString().trim() +"="+ drivers.get(i).getMail().toString().trim(),Toast.LENGTH_SHORT).show();
 
-                        FireBase_DSManager.CurrentDriver=new Driver(drivers.get(i));
+                    if ( drivers.get(i).getMail().toString().trim().compareTo ( MyMail.getText().toString().trim()) ==0 )
+                    {
+                       Toast.makeText(getBaseContext(),"if check",Toast.LENGTH_SHORT).show();
+                        d=new Driver(drivers.get(i));
+                        break;
                     }
                 }
 
+                FireBase_DSManager.CurrentDriver=d;
 
+                */
                 SignIn(MyMail.getText().toString().trim(),Password.getText().toString().trim());
             }
         });
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity
         editor.putString(Mail,mail);
         editor.putString(Pass,password);
         editor.commit();
-        Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"DataStoredSuccessfully",Toast.LENGTH_SHORT).show();
 
     }
     /*public void Fetch(View view)
