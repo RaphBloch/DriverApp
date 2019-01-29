@@ -161,7 +161,7 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
 
                 TextView dialogName = mydialog.findViewById(R.id.dialog_Name);
                 TextView dialogDestination = mydialog.findViewById(R.id.dialog_destination_adresse);
-                TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
+                //TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
                 Button dialogCallBtn = mydialog.findViewById(R.id.dialog_button_call);
                 Button dialogMessageBtn = mydialog.findViewById(R.id.dialog_button_Message);
                 Button dialogMailBtn = mydialog.findViewById(R.id.dialog_button_Mail);
@@ -173,6 +173,8 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
                 //Toast.LENGTH_SHORT).show();
                 dialogName.setText(list.get(position).getName());
                 dialogDestination.setText(list.get(position).getDestination());
+                dialogStartBtn.setText("Cancel");
+
                 dialogStartBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -180,12 +182,12 @@ public class FinishOrderAdapter2 extends RecyclerView.Adapter<FinishOrderAdapter
                         builder.setCancelable(false);
                         builder.setIcon(R.drawable.logo7_hdpi);
                         builder.setTitle("Order");
-                        builder.setMessage("Are you sure you want start the order ");
+                        builder.setMessage("Are you sure you want to cancel the order ");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(d.getD().getID());
-                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("status").setValue(ClientRequestStatus._Current);
+                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("driverId").setValue(0);
+                                FireBase_DSManager.ClientsRef.child(String.valueOf(list.get(position).getId())).child("status").setValue(ClientRequestStatus._Waiting);
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

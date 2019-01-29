@@ -19,6 +19,8 @@ import android.widget.Button;
 
 import com.example.elie.driverapp.Controller.DriverActivity;
 
+import java.util.Random;
+
 public class MyBroadcastReceiver extends BroadcastReceiver
 
 {
@@ -29,6 +31,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver
         int MY_NOTFICATION_ID;
 
         final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+        Random r = new Random();
 
         //final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
@@ -65,23 +68,17 @@ public class MyBroadcastReceiver extends BroadcastReceiver
 
             }
 
-            final NotificationCompat.Builder b = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
-
-
-
-
-            b.setAutoCancel(true)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.drawable.logo7_hdpi)
+            final Notification notif = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID).
+                    setSmallIcon(R.drawable.logo7_hdpi)
                     .setContentTitle("New Waiting Order")
                     .setContentText("You have a  new Waiting Order !!!  "  +  destination )
                     .setDefaults(Notification.DEFAULT_LIGHTS)
                     .setContentIntent(contentIntent)
-                    .setContentInfo("Info");
+                    .setContentInfo("Info").build();
 
 
-            notificationManager.notify(1, b.build());
+
+            notificationManager.notify(r.nextInt(3000), notif);
         }
 
 

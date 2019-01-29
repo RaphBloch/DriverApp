@@ -5,7 +5,7 @@ import com.example.elie.driverapp.Model.Entities.*;
 
 public interface Backend
 {
-        public void addDriver(Driver d);
+
 
         public interface Action<T>
         {
@@ -30,11 +30,13 @@ public interface Backend
 
         public  void notifyToClientList(final NotifyDataChange<ClientRequest> notifyDataChange);
 
+        public  void addDriverToFireBase(final Driver driver,final Action<String> action);
+
 
 
         public void   stopNotifyToClientList();
 
-       // public   void notifyToDriverList(final NotifyDataChange<Driver> notifyDataChange);
+        public   void notifyToDriverList(final NotifyDataChange<Driver> notifyDataChange);
 
 
 }

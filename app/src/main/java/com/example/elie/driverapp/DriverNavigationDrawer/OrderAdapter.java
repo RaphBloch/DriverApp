@@ -144,7 +144,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
                 TextView dialogName = mydialog.findViewById(R.id.dialog_Name);
                 TextView dialogDestination = mydialog.findViewById(R.id.dialog_destination_adresse);
-                TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
+                //TextView dialogPosition = mydialog.findViewById(R.id.dialog_position_adresse);
                 Button dialogCallBtn = mydialog.findViewById(R.id.dialog_button_call);
                 Button dialogMessageBtn = mydialog.findViewById(R.id.dialog_button_Message);
                 Button dialogMailBtn = mydialog.findViewById(R.id.dialog_button_Mail);

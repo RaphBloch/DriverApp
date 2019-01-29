@@ -11,8 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/id_test">
 
+        <!--fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_main"
+            >
+
+        </fragment-->
         <!--Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,5 +56,12 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_driver"
         app:menu="@menu/activity_driver2_drawer" />
+
+    <!--fragment
+        android:id="@+id/fragment_main"
+        android:name="com.example.elie.driverapp.DriverNavigationDrawer.Fragment_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" /-->
+
 
 </android.support.v4.widget.DrawerLayout>

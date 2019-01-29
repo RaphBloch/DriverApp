@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="240dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,11 +30,13 @@
 
     </RelativeLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="60px"
+        android:layout_marginTop="50px"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         >
@@ -89,6 +91,11 @@
             android:hint="@string/Password"
             android:inputType="textPassword" /-->
 
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/idProgresseBar"
+            />
         <Button
             android:id="@+id/Login"
             android:background="@drawable/backgroundbutton"

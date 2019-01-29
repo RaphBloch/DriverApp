@@ -66,11 +66,29 @@ public class RegisterActivity extends AppCompatActivity
                  d.setMail(Mail.getText().toString().trim());
                  d.setPhone(Phone.getText().toString().trim());
                 Register();
-                f.addDriver(d);
-                FireBase_DSManager.CurrentDriver=new Driver(d);
-                ComponentName componentName = new ComponentName(RegisterActivity.this,DriverActivity.class);
+                f.addDriverToFireBase(d, new Backend.Action<String>() {
+                    @Override
+                    public void OnSuccess(String obj) {
+                        Toast.makeText(getBaseContext(),"Name : "+ obj,Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void OnProgress(String status, double percent) {
+
+
+                    }
+
+                    @Override
+                    public void OnFailure(Exception exception) {
+                        Toast.makeText(getBaseContext(),"Error : "+ exception,Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
+                ComponentName componentName = new ComponentName(RegisterActivity.this,MainActivity.class);
                 Intent myintent=new Intent();
                 myintent.putExtra("mail",Mail.getText().toString());
+                myintent.putExtra("password",Password1.getText().toString());
                 myintent.setComponent(componentName);
                 startActivity(myintent);
 
