@@ -1,30 +1,19 @@
 package com.example.elie.driverapp.DriverNavigationDrawer;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.DialogInterface;
-import android.content.OperationApplicationException;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.RemoteException;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
 
 import com.example.elie.driverapp.Controller.DriverActivity;
 import com.example.elie.driverapp.Fragment_order_information;
@@ -34,7 +23,6 @@ import com.example.elie.driverapp.Model.Entities.ClientRequest;
 import  com.example.elie.driverapp.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class order_finished_fragment extends Fragment
@@ -48,8 +36,8 @@ public class order_finished_fragment extends Fragment
     ArrayList<ClientRequest> myclientslistf = new ArrayList<ClientRequest>();
     ArrayList<ClientRequest> myclientslistc = new ArrayList<ClientRequest>();
 
-    private FinishOrderAdapter2 myAdapter;
-    private FinishOrderAdapter2 myAdapter2;
+    private FinishOrderAdapter myAdapter;
+    private FinishOrderAdapter myAdapter2;
     DriverActivity d;
 
     View myview;
@@ -72,7 +60,7 @@ public class order_finished_fragment extends Fragment
             }
         }
 
-        myAdapter = new FinishOrderAdapter2 (myclientslistf,getContext());
+        myAdapter = new FinishOrderAdapter(myclientslistf,getContext());
         myAdapter.notifyDataSetChanged();
         listView.setAdapter(myAdapter);
         AccessContact();
@@ -86,7 +74,7 @@ public class order_finished_fragment extends Fragment
                 myclientslistc.add(item);
             }
         }
-        myAdapter2 =new FinishOrderAdapter2(myclientslistc,getContext());
+        myAdapter2 =new FinishOrderAdapter(myclientslistc,getContext());
         myAdapter2.notifyDataSetChanged();
         listView2.setAdapter(myAdapter2);
 
